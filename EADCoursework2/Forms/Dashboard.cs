@@ -1,4 +1,5 @@
-﻿using EADCoursework2.Utils;
+﻿using EADCoursework2.CustomControls;
+using EADCoursework2.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,6 +39,9 @@ namespace EADCoursework2.Forms
 
             //Selet My Wallet as Default tab
             SelectTab(TabHeaderItem.MyWallet);
+
+            //Add Sub View to main panel
+            this.panelMain.Controls.Add(new MyEventsUserControl());
         }
 
         private void SelectTab(TabHeaderItem tabHeaderItem)

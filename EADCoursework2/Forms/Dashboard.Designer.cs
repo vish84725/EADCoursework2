@@ -29,15 +29,24 @@ namespace EADCoursework2.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.panelMain = new System.Windows.Forms.Panel();
             this.tabHeaderMySettings = new EADCoursework2.CustomControls.DashboardTabHeaderItem();
             this.tabHeaderMyReports = new EADCoursework2.CustomControls.DashboardTabHeaderItem();
             this.tabHeaderMyEvents = new EADCoursework2.CustomControls.DashboardTabHeaderItem();
             this.tabHeaderMyWallet = new EADCoursework2.CustomControls.DashboardTabHeaderItem();
             this.SuspendLayout();
             // 
+            // panelMain
+            // 
+            this.panelMain.BackColor = System.Drawing.Color.Transparent;
+            this.panelMain.Location = new System.Drawing.Point(30, 100);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Size = new System.Drawing.Size(740, 320);
+            this.panelMain.TabIndex = 4;
+            // 
             // tabHeaderMySettings
             // 
-            this.tabHeaderMySettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(193)))), ((int)(((byte)(32)))));
+            this.tabHeaderMySettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
             this.tabHeaderMySettings.Location = new System.Drawing.Point(603, 1);
             this.tabHeaderMySettings.Name = "tabHeaderMySettings";
             this.tabHeaderMySettings.Size = new System.Drawing.Size(209, 70);
@@ -45,7 +54,7 @@ namespace EADCoursework2.Forms
             // 
             // tabHeaderMyReports
             // 
-            this.tabHeaderMyReports.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(193)))), ((int)(((byte)(32)))));
+            this.tabHeaderMyReports.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
             this.tabHeaderMyReports.Location = new System.Drawing.Point(396, 1);
             this.tabHeaderMyReports.Name = "tabHeaderMyReports";
             this.tabHeaderMyReports.Size = new System.Drawing.Size(210, 70);
@@ -53,7 +62,7 @@ namespace EADCoursework2.Forms
             // 
             // tabHeaderMyEvents
             // 
-            this.tabHeaderMyEvents.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(193)))), ((int)(((byte)(32)))));
+            this.tabHeaderMyEvents.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
             this.tabHeaderMyEvents.Location = new System.Drawing.Point(192, 1);
             this.tabHeaderMyEvents.Name = "tabHeaderMyEvents";
             this.tabHeaderMyEvents.Size = new System.Drawing.Size(208, 70);
@@ -61,7 +70,7 @@ namespace EADCoursework2.Forms
             // 
             // tabHeaderMyWallet
             // 
-            this.tabHeaderMyWallet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(193)))), ((int)(((byte)(32)))));
+            this.tabHeaderMyWallet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
             this.tabHeaderMyWallet.Location = new System.Drawing.Point(-6, 1);
             this.tabHeaderMyWallet.Name = "tabHeaderMyWallet";
             this.tabHeaderMyWallet.Size = new System.Drawing.Size(200, 70);
@@ -71,11 +80,14 @@ namespace EADCoursework2.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.panelMain);
             this.Controls.Add(this.tabHeaderMySettings);
             this.Controls.Add(this.tabHeaderMyReports);
             this.Controls.Add(this.tabHeaderMyEvents);
             this.Controls.Add(this.tabHeaderMyWallet);
+            this.ForeColor = System.Drawing.Color.White;
             this.Name = "Dashboard";
             this.Text = "Dashboard";
             this.Load += new System.EventHandler(this.Dashboard_Load);
@@ -89,5 +101,6 @@ namespace EADCoursework2.Forms
         private CustomControls.DashboardTabHeaderItem tabHeaderMyEvents;
         private CustomControls.DashboardTabHeaderItem tabHeaderMyReports;
         private CustomControls.DashboardTabHeaderItem tabHeaderMySettings;
+        private System.Windows.Forms.Panel panelMain;
     }
 }
