@@ -14,9 +14,13 @@ namespace EADCoursework2.Forms
 {
     public partial class Dashboard : Form
     {
+        private MyWalletUserControl mWallet;
+        private MyEventsUserControl mEvents;
         public Dashboard()
         {
             InitializeComponent();
+            mWallet = new MyWalletUserControl();
+            mEvents = new MyEventsUserControl();
         }
 
         private void Dashboard_Load(object sender, EventArgs e)
@@ -40,32 +44,44 @@ namespace EADCoursework2.Forms
             //Selet My Wallet as Default tab
             SelectTab(TabHeaderItem.MyWallet);
 
-            //Add Sub View to main panel
-            this.panelMain.Controls.Add(new MyEventsUserControl());
         }
 
         private void SelectTab(TabHeaderItem tabHeaderItem)
         {
-            tabHeaderMyEvents.ToggleSelectedState(false);
-            tabHeaderMyWallet.ToggleSelectedState(false);
-            tabHeaderMyReports.ToggleSelectedState(false);
-            tabHeaderMySettings.ToggleSelectedState(false);
-
-            switch (tabHeaderItem)
+            try
             {
-                case TabHeaderItem.MyEvents:
-                    tabHeaderMyEvents.ToggleSelectedState(true);
-                    break;
-                case TabHeaderItem.MyWallet:
-                    tabHeaderMyWallet.ToggleSelectedState(true);
-                    break;
-                case TabHeaderItem.MySettings:
-                    tabHeaderMySettings.ToggleSelectedState(true);
-                    break;
-                case TabHeaderItem.MyReports:
-                    tabHeaderMyReports.ToggleSelectedState(true);
-                    break;
+                this.panelMain.Controls.Remove(mWallet);
+                this.panelMain.Controls.Remove(mEvents);
+
+                tabHeaderMyEvents.ToggleSelectedState(false);
+                tabHeaderMyWallet.ToggleSelectedState(false);
+                tabHeaderMyReports.ToggleSelectedState(false);
+                tabHeaderMySettings.ToggleSelectedState(false);
+
+                switch (tabHeaderItem)
+                {
+                    case TabHeaderItem.MyEvents:
+                        tabHeaderMyEvents.ToggleSelectedState(true);
+                        this.panelMain.Controls.Add(mEvents);
+                        break;
+                    case TabHeaderItem.MyWallet:
+                        tabHeaderMyWallet.ToggleSelectedState(true);
+                        this.panelMain.Controls.Add(mWallet);
+                        break;
+                    case TabHeaderItem.MySettings:
+                        tabHeaderMySettings.ToggleSelectedState(true);
+                        break;
+                    case TabHeaderItem.MyReports:
+                        tabHeaderMyReports.ToggleSelectedState(true);
+                        break;
+                }
+
             }
+            catch(Exception)
+            {
+
+            }
+
         }
         #endregion
 

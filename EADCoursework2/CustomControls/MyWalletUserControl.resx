@@ -117,44 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="add_circle_black_24dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add_circle_black_24dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DashboardTabMyEvents" xml:space="preserve">
-    <value>My Events</value>
-  </data>
-  <data name="DashboardTabMyReports" xml:space="preserve">
-    <value>My Reports</value>
-  </data>
-  <data name="DashboardTabMySettings" xml:space="preserve">
-    <value>My Settings</value>
-  </data>
-  <data name="DashboardTabMyWallet" xml:space="preserve">
-    <value>My Wallet</value>
-  </data>
-  <data name="MyEventsBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\outline_event_black_24dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MyEventsWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\outline_event_white_24dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MyReportsBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\outline_assessment_black_24dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MyReportsWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\outline_assessment_white_24dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MySettingsBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\outline_settings_black_24dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MySettingsWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\outline_settings_white_24dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MyWalletBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\outline_card_travel_black_24dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MyWalletImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\outline_card_travel_white_24dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnAddTransaction.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAALASURBVGhD7ZlBbtNAFIZH2FkUqSA8XpVwDCq4BwKJi1BYdUEpqy4osR3BCRrBgsJBqOAAQDfQ
+        0i0pG/jH+RlV5rmdmUycRsonfUqkvvnnNXEm44lasmRJBPZUklbZ3bTQT+CbtNSf4Qn8TU/SSn+q/1bp
+        x70iu6M21RWOniOD7BYaeo4GD+EfT7/BbfUq6zOtQ4areVJmFRo4PdNQqKdJqQv1clUzfbYkRf4Qk/5s
+        NBHD46TKHnCaGTBUPUwwFCaOav1ubKqUs0ZiuHY1LbMP0oQzcl/t9Fc4+5Tgle+4+YlV9j7KO9HFZdMm
+        LqcB2wiDH1gxvCux2t1nO55gWUvL/EgK7dhjs2yzK3e4zkuBTjLGItW4iktplzGO4NsRA6f6kmKSRarx
+        cKxKfZNRF8PtgRTkLKMsUo2XhX7GqAvAJgsDzD5FDnKUaRapxtNDs2lkXDv1rlIO8JJxFqnG116p1xnX
+        Tr0lFgb7yjiLVBPgBuPaQdHbxqAgGWeRagIcMa6d+sZDHuwl4yxSTYAHjGsHRU5bZZZHQ5rjf/MjlreD
+        Qqf1n+XRkOYQHLO8HRQt/D+w4JfQwn+IJ8ci0mAvGWeRanztVfke49q51F9khX7EuHbMoZM42FPGWaQa
+        X3sDfZtx54DNHPYcX6UAH5lmkWp8RE9fTG+MOx8M2G4G+Mooi1Tj6RajHFj0GxqDOWASgpxljEWqcTUp
+        9AvGePD6WobBP5phc/A4+NzUnFUKgZ2KHu6xnTCmvZSmMezSaWJ+vIh0k+PpPpbNSIe8O/0VE9iYYHYW
+        +l28w91/4NUwZ5XihBGtL5vox+tnMGeVmGgWq9P3qT+wzmCJNcd9mHTcaCLEX/WrXly/wfQO2c3X0MBW
+        yN7J7G3w+NRkMG2OTDaA62hoA47gATR3dmY7YsTz/CMeR2ZLXO8qL8XPrEuWLDpK/QVWonIbnjVCigAA
+        AABJRU5ErkJggg==
+</value>
   </data>
 </root>
