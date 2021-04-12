@@ -71,6 +71,16 @@ namespace EADCoursework2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AddButton {
+            get {
+                object obj = ResourceManager.GetObject("AddButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Events.
         /// </summary>
         internal static string DashboardTabMyEvents {
@@ -103,6 +113,16 @@ namespace EADCoursework2.Properties {
         internal static string DashboardTabMyWallet {
             get {
                 return ResourceManager.GetString("DashboardTabMyWallet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DoneButton {
+            get {
+                object obj = ResourceManager.GetObject("DoneButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

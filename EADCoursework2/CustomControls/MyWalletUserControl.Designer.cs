@@ -133,6 +133,7 @@ namespace EADCoursework2.CustomControls
             this.btnAddTransaction.Size = new System.Drawing.Size(75, 75);
             this.btnAddTransaction.TabIndex = 0;
             this.btnAddTransaction.UseVisualStyleBackColor = false;
+            this.btnAddTransaction.Click += new System.EventHandler(this.btnAddTransaction_Click);
             // 
             // label1
             // 

@@ -46,11 +46,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomControls\Components\ToggleItemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\Components\ToggleItemControl.Designer.cs">
+      <DependentUpon>ToggleItemControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\DashboardTabHeaderItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CustomControls\DashboardTabHeaderItem.Designer.cs">
       <DependentUpon>DashboardTabHeaderItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\InputControls\DateFieldControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\InputControls\DateFieldControl.Designer.cs">
+      <DependentUpon>DateFieldControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\InputControls\DropDownFieldControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\InputControls\DropDownFieldControl.Designer.cs">
+      <DependentUpon>DropDownFieldControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\InputControls\MultiTextFieldControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\InputControls\MultiTextFieldControl.Designer.cs">
+      <DependentUpon>MultiTextFieldControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\InputControls\TextFieldControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\InputControls\TextFieldControl.Designer.cs">
+      <DependentUpon>TextFieldControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\InputControls\TimePickerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\InputControls\TimePickerControl.Designer.cs">
+      <DependentUpon>TimePickerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\MyEventsRowItem.cs">
       <SubType>UserControl</SubType>
@@ -82,6 +118,18 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddEvent.Designer.cs">
+      <DependentUpon>AddEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddTransaction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddTransaction.Designer.cs">
+      <DependentUpon>AddTransaction.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,8 +146,26 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Constants.cs" />
     <Compile Include="Utils\Enums.cs" />
+    <EmbeddedResource Include="CustomControls\Components\ToggleItemControl.resx">
+      <DependentUpon>ToggleItemControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\DashboardTabHeaderItem.resx">
       <DependentUpon>DashboardTabHeaderItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\InputControls\DateFieldControl.resx">
+      <DependentUpon>DateFieldControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\InputControls\DropDownFieldControl.resx">
+      <DependentUpon>DropDownFieldControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\InputControls\MultiTextFieldControl.resx">
+      <DependentUpon>MultiTextFieldControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\InputControls\TextFieldControl.resx">
+      <DependentUpon>TextFieldControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\InputControls\TimePickerControl.resx">
+      <DependentUpon>TimePickerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\MyEventsRowItem.resx">
       <DependentUpon>MyEventsRowItem.cs</DependentUpon>
@@ -112,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\MyWalletUserControl.resx">
       <DependentUpon>MyWalletUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddTransaction.resx">
+      <DependentUpon>AddTransaction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
@@ -177,6 +246,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\add_circle_black_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add_circle_outline_black_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\done_black_36dp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

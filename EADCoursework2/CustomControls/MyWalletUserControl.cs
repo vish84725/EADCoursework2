@@ -1,4 +1,5 @@
-﻿using EADCoursework2.Utils;
+﻿using EADCoursework2.Forms;
+using EADCoursework2.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,5 +31,11 @@ namespace EADCoursework2.CustomControls
             this.BackColor = Constants.MW_Gray;
         }
         #endregion
+
+        private void btnAddTransaction_Click(object sender, EventArgs e)
+        {
+            AddTransaction form = new AddTransaction();
+            form.ShowDialog();
+        }
     }
 }
