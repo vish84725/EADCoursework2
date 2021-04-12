@@ -64,6 +64,12 @@
     <Compile Include="CustomControls\InputControls\DateFieldControl.Designer.cs">
       <DependentUpon>DateFieldControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\InputControls\RecurrentDropDownFieldControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\InputControls\RecurrentDropDownFieldControl.Designer.cs">
+      <DependentUpon>RecurrentDropDownFieldControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\InputControls\DropDownFieldControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -155,6 +161,9 @@
     <EmbeddedResource Include="CustomControls\InputControls\DateFieldControl.resx">
       <DependentUpon>DateFieldControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\InputControls\RecurrentDropDownFieldControl.resx">
+      <DependentUpon>RecurrentDropDownFieldControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\InputControls\DropDownFieldControl.resx">
       <DependentUpon>DropDownFieldControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -178,6 +187,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\MyWalletUserControl.resx">
       <DependentUpon>MyWalletUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddEvent.resx">
+      <DependentUpon>AddEvent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddTransaction.resx">
       <DependentUpon>AddTransaction.cs</DependentUpon>

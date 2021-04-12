@@ -1,4 +1,5 @@
-﻿using EADCoursework2.Utils;
+﻿using EADCoursework2.Forms;
+using EADCoursework2.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,9 +14,18 @@ namespace EADCoursework2.CustomControls
 {
     public partial class MyEventsUserControl : UserControl
     {
+        public enum ViewDisplayState
+        {
+            All,Events, Transactions
+        };
+        private ViewDisplayState CurrentViewState;
+
         public MyEventsUserControl()
         {
             InitializeComponent();
+            toggleAll.Click += ToggleAll_Click;
+            toggleEvents.Click += ToggleEvents_Click;
+            toggleTransactions.Click += ToggleTransactions_Click;
         }
 
         private void MyEventsUserControl_Load(object sender, EventArgs e)
@@ -29,11 +39,39 @@ namespace EADCoursework2.CustomControls
         {
             //set background color
             this.BackColor = Constants.MW_Gray;
+
+            //set toggles
+            toggleAll.ToggleItemName = "All";
+            toggleEvents.ToggleItemName = "Events";
+            toggleTransactions.ToggleItemName = "Transactions";
+
+            ToggleDisplayState(ViewDisplayState.All);
         }
 
         private void LoadData()
         {
             PopulateMyEvents();
+        }
+
+        private void ToggleDisplayState(ViewDisplayState currentState)
+        {
+            CurrentViewState = currentState;
+            toggleAll.ToggleControl(false);
+            toggleEvents.ToggleControl(false);
+            toggleTransactions.ToggleControl(false);
+
+            switch(currentState)
+            {
+                case ViewDisplayState.All:
+                    toggleAll.ToggleControl(true);
+                    break;
+                case ViewDisplayState.Events:
+                    toggleEvents.ToggleControl(true);
+                    break;
+                case ViewDisplayState.Transactions:
+                    toggleTransactions.ToggleControl(true);
+                    break;
+            }
         }
 
         private void PopulateMyEvents()
@@ -50,9 +88,37 @@ namespace EADCoursework2.CustomControls
         }
         #endregion
 
+        #region Event Handlers
         private void myEventsFlowLayout_Paint(object sender, PaintEventArgs e)
         {
 
         }
+
+        private void MyEventsUserControl_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addEventPictureBox_Click(object sender, EventArgs e)
+        {
+            AddEvent form = new AddEvent();
+            form.ShowDialog();
+        }
+        private void ToggleTransactions_Click(object sender, EventArgs e)
+        {
+            ToggleDisplayState(ViewDisplayState.Transactions);
+        }
+
+        private void ToggleEvents_Click(object sender, EventArgs e)
+        {
+            ToggleDisplayState(ViewDisplayState.Events);
+        }
+
+        private void ToggleAll_Click(object sender, EventArgs e)
+        {
+            ToggleDisplayState(ViewDisplayState.All);
+        }
+        #endregion
+
     }
 }
