@@ -9,6 +9,7 @@ namespace EADCoursework2
 {
     static class Program
     {
+        public static bool OpenDashboardOnClose { get; set; }
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -17,7 +18,12 @@ namespace EADCoursework2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Dashboard());
+            OpenDashboardOnClose = false;
+            Application.Run(new Login());
+            if(OpenDashboardOnClose)
+            {
+                Application.Run(new Dashboard());
+            }
         }
     }
 }
