@@ -1,4 +1,6 @@
-﻿using EADCoursework2.Models;
+﻿using EADCoursework2.DAL;
+using EADCoursework2.Models;
+using EADCoursework2.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +15,8 @@ namespace EADCoursework2.Forms
 {
     public partial class Login : Form
     {
+        //MyWalletAPI API;
+        IUserService mUserService;
         public Login()
         {
             InitializeComponent();
@@ -22,10 +26,25 @@ namespace EADCoursework2.Forms
         private void Login_Load(object sender, EventArgs e)
         {
             InitializeUIComponents();
+            Init();
+
         }
 
 
         #region Private Methods
+        private void Init()
+        {
+            try
+            {
+                //API = new MyWalletAPI();
+                mUserService = new UserService();
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
         private void InitializeUIComponents()
         {
             textFieldUsername.LabelKey = "Username";
@@ -45,8 +64,9 @@ namespace EADCoursework2.Forms
             return true;
         }
 
-        private bool LoginUser(User user)
+        private async Task<bool> LoginUserAsync(User user)
         {
+            var users = await mUserService.GetAllUsers();
             return true;
         }
 
@@ -60,7 +80,7 @@ namespace EADCoursework2.Forms
 
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
             if(ValidateFields())
             {
@@ -70,7 +90,7 @@ namespace EADCoursework2.Forms
                     Password = textFieldPassword.LabelValue,
                 };
 
-                if (LoginUser(user))
+                if (await LoginUserAsync(user))
                 {
                     Program.OpenDashboardOnClose = true;
                     this.Close();
