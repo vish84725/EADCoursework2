@@ -66,8 +66,18 @@ namespace EADCoursework2.Forms
 
         private async Task<bool> LoginUserAsync(User user)
         {
-            var users = await mUserService.GetAllUsers();
-            return true;
+            try
+            {
+                var loggedInUser = await mUserService.LoginUser(user);
+                if (loggedInUser != null && loggedInUser.UserId != 0)
+                    return true;
+                return false;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+
         }
 
         #endregion

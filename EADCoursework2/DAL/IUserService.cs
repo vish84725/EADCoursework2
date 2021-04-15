@@ -11,5 +11,6 @@ namespace EADCoursework2.DAL
     {
         Task<List<User>> GetAllUsers();
         Task<int> RegisterUser(User user);
+        Task<User> LoginUser(User user);
     }
 }

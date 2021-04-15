@@ -25,6 +25,19 @@ namespace EADCoursework2.DAL
 
         }
 
+        public async Task<User> LoginUser(User user)
+        {
+            try
+            {
+                var u = await MyWalletAPI<User>.PostRequest($"{BASEURL}api/user/login", user);
+                return u;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public async Task<int> RegisterUser(User user)
         {
             try
