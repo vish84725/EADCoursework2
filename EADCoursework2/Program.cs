@@ -1,4 +1,5 @@
 ﻿using EADCoursework2.Forms;
+using EADCoursework2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace EADCoursework2
     static class Program
     {
         public static bool OpenDashboardOnClose { get; set; }
+        public static User LoggedInUser { get; set; }
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -22,7 +24,7 @@ namespace EADCoursework2
             Application.Run(new Login());
             if(OpenDashboardOnClose)
             {
-                Application.Run(new Dashboard());
+                Application.Run(new Dashboard() { LoggedInUser  = LoggedInUser});
             }
         }
     }

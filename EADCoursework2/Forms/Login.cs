@@ -64,18 +64,21 @@ namespace EADCoursework2.Forms
             return true;
         }
 
-        private async Task<bool> LoginUserAsync(User user)
+        private async Task<User> LoginUserAsync(User user)
         {
             try
             {
+                Cursor.Current = Cursors.WaitCursor;
                 var loggedInUser = await mUserService.LoginUser(user);
                 if (loggedInUser != null && loggedInUser.UserId != 0)
-                    return true;
-                return false;
+                    return loggedInUser;
+                Cursor.Current = Cursors.Default;
+                return null;
             }
             catch(Exception e)
             {
-                return false;
+                Cursor.Current = Cursors.Default;
+                return null;
             }
 
         }
@@ -100,9 +103,11 @@ namespace EADCoursework2.Forms
                     Password = textFieldPassword.LabelValue,
                 };
 
-                if (await LoginUserAsync(user))
+                var loggedInUser = await LoginUserAsync(user);
+                if (loggedInUser != null)
                 {
                     Program.OpenDashboardOnClose = true;
+                    Program.LoggedInUser = loggedInUser;
                     this.Close();
                 }
                 else

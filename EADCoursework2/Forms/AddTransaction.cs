@@ -1,5 +1,6 @@
 ﻿using EADCoursework2.CustomControls.InputControls;
 using EADCoursework2.DAL;
+using EADCoursework2.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ namespace EADCoursework2.Forms
 {
     public partial class AddTransaction : Form
     {
+        public User User { get; set; }
         public enum TransactionState { Income, Expense};
 
         private TextFieldControl mTitleField;
@@ -179,6 +181,36 @@ namespace EADCoursework2.Forms
             this.form.Show();
         }
 
+        private bool ValidateIncomeFields()
+        {
+            if (mTitleField.LabelValue == null || mTitleField.LabelValue.Trim() == string.Empty)
+                return false;
+            if (mNotesField.LabelValue == null || mNotesField.LabelValue.Trim() == string.Empty)
+                return false;
+            if (mDateField.Date == null)
+                return false;
+            if (mTimeField.Time == null)
+                return false;
+            if (mPayerField.SelectedDropDownValue == null)
+                return false;
+            return true;
+        }
+
+        private bool ValidateExpenseFields()
+        {
+            if (mTitleField.LabelValue == null || mTitleField.LabelValue.Trim() == string.Empty)
+                return false;
+            if (mNotesField.LabelValue == null || mNotesField.LabelValue.Trim() == string.Empty)
+                return false;
+            if (mDateField.Date == null)
+                return false;
+            if (mTimeField.Time == null)
+                return false;
+            if (mPayeeField.SelectedDropDownValue == null)
+                return false;
+            return true;
+        }
+
         private void CreateIncomeForm()
         {
             if(mTimeField != null &&
@@ -248,6 +280,46 @@ namespace EADCoursework2.Forms
             }
 
         }
+
+        private async Task<Income> CreateIncome(Income income)
+        {
+            try
+            {
+                if (mTransactionService != null)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    var inc = await mTransactionService.CreateIncome(income);
+                    Cursor.Current = Cursors.Default;
+                    return inc;
+                }
+                return null;
+            }
+            catch(Exception e)
+            {
+                Cursor.Current = Cursors.Default;
+                return null;
+            }
+        }
+
+        private async Task<Expense> CreateExpense(Expense expense)
+        {
+            try
+            {
+                if (mTransactionService != null)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    var exp = await mTransactionService.CreateExpense(expense);
+                    Cursor.Current = Cursors.Default;
+                    return exp;
+                }
+                return null ;
+            }
+            catch (Exception e)
+            {
+                Cursor.Current = Cursors.Default;
+                return null;
+            }
+        }
         #endregion
 
         #region Event Handlers
@@ -264,6 +336,55 @@ namespace EADCoursework2.Forms
                 toggleExpense.ToggleControl(true);
             }
 
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            if(SelectedTransactionState == TransactionState.Income)
+            {
+                if(ValidateIncomeFields())
+                {
+                    var income = new Income()
+                    {
+                        Date = mDateField.Date,
+                        Notes = mNotesField.LabelValue.Trim(),
+                        Payee = (Payee)mPayeeField.SelectedDropDownValue,
+                        Time = mTimeField.Time,
+                        Title = mTitleField.LabelValue.Trim(),
+                        User = this.User,
+                        UserId = this.User.UserId,
+                        PayeeId = ((Payee)mPayeeField.SelectedDropDownValue).PayeeId
+                    };
+                    var inc = await CreateIncome(income);
+                    if (inc != null && inc.TransactionId != 0)
+                    {
+                        MessageBox.Show("Income created successfully");
+                    }
+                    
+                }
+            }
+            else if(SelectedTransactionState == TransactionState.Expense)
+            {
+                if(ValidateExpenseFields())
+                {
+                    var expense = new Expense()
+                    {
+                        Date = mDateField.Date,
+                        Notes = mNotesField.LabelValue.Trim(),
+                        Payer = (Payer)mPayeeField.SelectedDropDownValue,
+                        Time = mTimeField.Time,
+                        Title = mTitleField.LabelValue.Trim(),
+                        User = this.User,
+                        UserId = this.User.UserId,
+                        PayerId = ((Payer)mPayeeField.SelectedDropDownValue).PayerId
+                    };
+                    var exp = await CreateExpense(expense);
+                    if (exp != null && exp.TransactionId != 0)
+                    {
+                        MessageBox.Show("Expense created successfully");
+                    }
+                }
+            }
         }
 
         private void ToggleIncome_Click(object sender, EventArgs e)

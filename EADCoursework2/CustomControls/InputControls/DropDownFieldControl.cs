@@ -17,7 +17,7 @@ namespace EADCoursework2.CustomControls.InputControls
         {
             get
             {
-                return cmbBoxValue.SelectedValue;
+                return cmbBoxValue.SelectedItem;
             }
         }
         public String LabelKey

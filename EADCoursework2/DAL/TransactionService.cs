@@ -12,6 +12,32 @@ namespace EADCoursework2.DAL
     {
         private const String BASEURL = Constants.BASEURL;
 
+        public async Task<Expense> CreateExpense(Expense expense)
+        {
+            try
+            {
+                var ex = await MyWalletAPI<Expense>.PostRequest($"{BASEURL}api/transaction/expense", expense);
+                return ex;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<Income> CreateIncome(Income income)
+        {
+            try
+            {
+                var inc = await MyWalletAPI<Income>.PostRequest($"{BASEURL}api/transaction/income", income);
+                return inc;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public async Task<Payee> CreatePayee(Payee payee)
         {
             try

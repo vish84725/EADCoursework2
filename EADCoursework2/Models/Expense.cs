@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,16 @@ namespace EADCoursework2.Models
 {
     public class Expense: Transaction
     {
+        [JsonProperty("payer")]
         public Payer Payer { get; set; }
 
+        [JsonProperty("payerid")]
+        public int PayerId { get; set; }
+
+        public Expense()
+        {
+
+        }
         public Expense(String title, DateTime date, DateTime time, Payer payer, String notes)
         {
             this.Title = title;

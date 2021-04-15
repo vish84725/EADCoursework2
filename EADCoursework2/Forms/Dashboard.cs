@@ -1,4 +1,5 @@
 ﻿using EADCoursework2.CustomControls;
+using EADCoursework2.Models;
 using EADCoursework2.Utils;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,10 @@ namespace EADCoursework2.Forms
     {
         private MyWalletUserControl mWallet;
         private MyEventsUserControl mEvents;
+        public User LoggedInUser { get; set; }
         public Dashboard()
         {
             InitializeComponent();
-            mWallet = new MyWalletUserControl();
-            mEvents = new MyEventsUserControl();
         }
 
         private void Dashboard_Load(object sender, EventArgs e)
@@ -35,6 +35,9 @@ namespace EADCoursework2.Forms
         #region Private Methods 
         private void InitializeUIComponents()
         {
+            mWallet = new MyWalletUserControl() { LoggedInUser = this.LoggedInUser };
+            mEvents = new MyEventsUserControl();
+
             //Set tab headers details
             tabHeaderMyEvents.SetHeaderItemType(Utils.TabHeaderItem.MyEvents);
             tabHeaderMyWallet.SetHeaderItemType(Utils.TabHeaderItem.MyWallet);
