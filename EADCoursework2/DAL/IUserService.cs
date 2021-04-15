@@ -10,5 +10,6 @@ namespace EADCoursework2.DAL
     interface IUserService
     {
         Task<List<User>> GetAllUsers();
+        Task<int> RegisterUser(User user);
     }
 }

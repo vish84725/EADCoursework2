@@ -1,4 +1,5 @@
-﻿using EADCoursework2.Models;
+﻿using EADCoursework2.DAL;
+using EADCoursework2.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,7 @@ namespace EADCoursework2.Forms
 {
     public partial class Register : Form
     {
+        IUserService mUserService;
         public Register()
         {
             InitializeComponent();
@@ -21,6 +23,7 @@ namespace EADCoursework2.Forms
         private void Register_Load(object sender, EventArgs e)
         {
             InitializeUIComponents();
+            Init();
         }
 
         #region Private Methods
@@ -29,6 +32,18 @@ namespace EADCoursework2.Forms
             textFieldUsername.LabelKey = "Username";
             textFieldPassword.LabelKey = "Password";
             textFieldConfirmPassword.LabelKey = "Confirm Password";
+        }
+
+        private void Init()
+        {
+            try
+            {
+                mUserService = new UserService();
+            }
+            catch(Exception)
+            {
+
+            }
         }
 
         private bool ValidateFields()
@@ -48,15 +63,28 @@ namespace EADCoursework2.Forms
             return true;
         }
 
-        private bool RegisterUser(User user)
+        private async Task<bool> RegisterUser(User user)
         {
-            return true;
+            try
+            {
+                var u = await mUserService.RegisterUser(user);
+                if(u != 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+
         }
         #endregion
 
 
         #region Event Handlers
-        private void btnRegister_Click(object sender, EventArgs e)
+        private async void btnRegister_Click(object sender, EventArgs e)
         {
             if (ValidateFields())
             {
@@ -66,7 +94,7 @@ namespace EADCoursework2.Forms
                     Password = textFieldPassword.LabelValue,
                 };
 
-                if (RegisterUser(user))
+                if (await RegisterUser(user))
                 {
                     this.Close();
                 }
