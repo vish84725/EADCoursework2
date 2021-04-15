@@ -132,6 +132,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddPayerPayee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddPayerPayee.Designer.cs">
+      <DependentUpon>AddPayerPayee.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddEvent.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,6 +215,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\MyWalletUserControl.resx">
       <DependentUpon>MyWalletUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddPayerPayee.resx">
+      <DependentUpon>AddPayerPayee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddEvent.resx">
       <DependentUpon>AddEvent.cs</DependentUpon>

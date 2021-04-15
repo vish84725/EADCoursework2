@@ -35,13 +35,13 @@ namespace EADCoursework2.CustomControls
             this.btnFinancialStatus = new System.Windows.Forms.Button();
             this.btnallTansactions = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnAddTransaction = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblTotalAmount = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblMonthlyAmount = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.lblWeeklyAmount = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblMonthlyAmount = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblTotalAmount = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnAddTransaction = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -72,6 +72,7 @@ namespace EADCoursework2.CustomControls
             this.btnAddPayeePayer.TabIndex = 2;
             this.btnAddPayeePayer.Text = "Add Payer/Payee";
             this.btnAddPayeePayer.UseVisualStyleBackColor = false;
+            this.btnAddPayeePayer.Click += new System.EventHandler(this.btnAddPayeePayer_Click);
             // 
             // btnFinancialStatus
             // 
@@ -120,6 +121,75 @@ namespace EADCoursework2.CustomControls
             this.panel2.Size = new System.Drawing.Size(601, 165);
             this.panel2.TabIndex = 1;
             // 
+            // lblWeeklyAmount
+            // 
+            this.lblWeeklyAmount.AutoSize = true;
+            this.lblWeeklyAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWeeklyAmount.ForeColor = System.Drawing.Color.Black;
+            this.lblWeeklyAmount.Location = new System.Drawing.Point(193, 107);
+            this.lblWeeklyAmount.Name = "lblWeeklyAmount";
+            this.lblWeeklyAmount.Size = new System.Drawing.Size(73, 15);
+            this.lblWeeklyAmount.TabIndex = 6;
+            this.lblWeeklyAmount.Text = "Rs. 5000.00";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.White;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Gray;
+            this.label5.Location = new System.Drawing.Point(193, 87);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(79, 15);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Last 7 days";
+            // 
+            // lblMonthlyAmount
+            // 
+            this.lblMonthlyAmount.AutoSize = true;
+            this.lblMonthlyAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMonthlyAmount.ForeColor = System.Drawing.Color.Red;
+            this.lblMonthlyAmount.Location = new System.Drawing.Point(16, 107);
+            this.lblMonthlyAmount.Name = "lblMonthlyAmount";
+            this.lblMonthlyAmount.Size = new System.Drawing.Size(77, 15);
+            this.lblMonthlyAmount.TabIndex = 4;
+            this.lblMonthlyAmount.Text = "-Rs. 2000.00";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Gray;
+            this.label3.Location = new System.Drawing.Point(16, 87);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(87, 15);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Last 30 days";
+            // 
+            // lblTotalAmount
+            // 
+            this.lblTotalAmount.AutoSize = true;
+            this.lblTotalAmount.BackColor = System.Drawing.Color.Transparent;
+            this.lblTotalAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalAmount.ForeColor = System.Drawing.Color.Black;
+            this.lblTotalAmount.Location = new System.Drawing.Point(16, 46);
+            this.lblTotalAmount.Name = "lblTotalAmount";
+            this.lblTotalAmount.Size = new System.Drawing.Size(76, 16);
+            this.lblTotalAmount.TabIndex = 2;
+            this.lblTotalAmount.Text = "Rs. 1270.00";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(16, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(78, 17);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "My Wallet";
+            // 
             // btnAddTransaction
             // 
             this.btnAddTransaction.BackColor = System.Drawing.Color.Transparent;
@@ -134,75 +204,6 @@ namespace EADCoursework2.CustomControls
             this.btnAddTransaction.TabIndex = 0;
             this.btnAddTransaction.UseVisualStyleBackColor = false;
             this.btnAddTransaction.Click += new System.EventHandler(this.btnAddTransaction_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(16, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 17);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "My Wallet";
-            // 
-            // lblTotalAmount
-            // 
-            this.lblTotalAmount.AutoSize = true;
-            this.lblTotalAmount.BackColor = System.Drawing.Color.Transparent;
-            this.lblTotalAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalAmount.ForeColor = System.Drawing.Color.Black;
-            this.lblTotalAmount.Location = new System.Drawing.Point(16, 46);
-            this.lblTotalAmount.Name = "lblTotalAmount";
-            this.lblTotalAmount.Size = new System.Drawing.Size(76, 16);
-            this.lblTotalAmount.TabIndex = 2;
-            this.lblTotalAmount.Text = "Rs. 1270.00";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Gray;
-            this.label3.Location = new System.Drawing.Point(16, 87);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(87, 15);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Last 30 days";
-            // 
-            // lblMonthlyAmount
-            // 
-            this.lblMonthlyAmount.AutoSize = true;
-            this.lblMonthlyAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMonthlyAmount.ForeColor = System.Drawing.Color.Red;
-            this.lblMonthlyAmount.Location = new System.Drawing.Point(16, 107);
-            this.lblMonthlyAmount.Name = "lblMonthlyAmount";
-            this.lblMonthlyAmount.Size = new System.Drawing.Size(77, 15);
-            this.lblMonthlyAmount.TabIndex = 4;
-            this.lblMonthlyAmount.Text = "-Rs. 2000.00";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.White;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Gray;
-            this.label5.Location = new System.Drawing.Point(193, 87);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(79, 15);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Last 7 days";
-            // 
-            // lblWeeklyAmount
-            // 
-            this.lblWeeklyAmount.AutoSize = true;
-            this.lblWeeklyAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWeeklyAmount.ForeColor = System.Drawing.Color.Black;
-            this.lblWeeklyAmount.Location = new System.Drawing.Point(193, 107);
-            this.lblWeeklyAmount.Name = "lblWeeklyAmount";
-            this.lblWeeklyAmount.Size = new System.Drawing.Size(73, 15);
-            this.lblWeeklyAmount.TabIndex = 6;
-            this.lblWeeklyAmount.Text = "Rs. 5000.00";
             // 
             // MyWalletUserControl
             // 

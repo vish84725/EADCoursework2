@@ -37,5 +37,11 @@ namespace EADCoursework2.CustomControls
             AddTransaction form = new AddTransaction();
             form.ShowDialog();
         }
+
+        private void btnAddPayeePayer_Click(object sender, EventArgs e)
+        {
+            AddPayerPayee form = new AddPayerPayee();
+            form.Show();
+        }
     }
 }
