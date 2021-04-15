@@ -20,5 +20,7 @@ namespace EADCoursework2.Utils
         public static Color MW_MYEVENT_ORANGE = Color.FromArgb(252, 149, 0);
         public static Color MW_MYEVENT_RED = Color.FromArgb(225, 39, 48);
         public static Color MW_White = Color.White;
+
+        public const String BASEURL = "https://localhost:44314/";
     }
 }

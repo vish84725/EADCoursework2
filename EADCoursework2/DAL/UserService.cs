@@ -10,7 +10,7 @@ namespace EADCoursework2.DAL
 {
     public class UserService : IUserService
     {
-        private const String BASEURL = "https://localhost:44314/";
+        private const String BASEURL = Constants.BASEURL;
         public async Task<List<User>> GetAllUsers()
         {
             try

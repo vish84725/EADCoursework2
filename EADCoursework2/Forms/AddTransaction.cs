@@ -1,4 +1,5 @@
 ﻿using EADCoursework2.CustomControls.InputControls;
+using EADCoursework2.DAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +22,8 @@ namespace EADCoursework2.Forms
         private DropDownFieldControl mPayerField, mPayeeField;
         private MultiTextFieldControl mNotesField;
         private TransactionState SelectedTransactionState;
+        private ITransactionService mTransactionService;
+        AddPayerPayee form;
 
         public AddTransaction()
         {
@@ -33,8 +36,22 @@ namespace EADCoursework2.Forms
         private void AddTransaction_Load(object sender, EventArgs e)
         {
             InitializeUIComponents();
+            Init();
             CreateIncomeForm();
-            SelectedTransactionState = TransactionState.Income;
+
+        }
+
+        private void Init()
+        {
+            try
+            {
+                mTransactionService = new TransactionService();
+                SelectedTransactionState = TransactionState.Income;
+            }
+            catch(Exception)
+            {
+
+            }
         }
 
         private void InitializeUIComponents()
@@ -51,9 +68,11 @@ namespace EADCoursework2.Forms
 
             mPayeeField = new DropDownFieldControl();
             mPayeeField.LabelKey = "Payee";
+            mPayeeField.MoveToAddWindow = this.NavigateAddPayerPayee;
 
             mPayerField = new DropDownFieldControl();
             mPayerField.LabelKey = "Payer";
+            mPayerField.MoveToAddWindow = this.NavigateAddPayerPayee;
 
             mNotesField = new MultiTextFieldControl();
             mNotesField.LabelKey = "Notes";
@@ -64,7 +83,102 @@ namespace EADCoursework2.Forms
             toggleIncome.ToggleControl(true);
         }
 
+        private void RefreshData()
+        {
+            LoadData();
+        }
+        private async void LoadData()
+        {
+            try
+            {
+                if (SelectedTransactionState == TransactionState.Income)
+                {
+                    if (mPayerField != null)
+                    {
+                        await LoadPayers();
+                    }
+                }
+                else if (SelectedTransactionState == TransactionState.Expense)
+                {
+                    if (mPayeeField != null)
+                    {
+                        await LoadPayees();
+                    }
+                }
+
+            }
+            catch(Exception e)
+            {
+
+            }
+        }
+
+        private async Task LoadPayers()
+        {
+            try
+            {
+                if (mTransactionService != null)
+                {
+                    if (mPayerField != null)
+                    {
+                        var payers = await mTransactionService.GetAllPayers();
+                        List<object> objList = new List<object>();
+                        foreach(var item in payers)
+                        {
+                            objList.Add(item);
+                        }
+                        if(payers != null && payers.Count > 0)
+                        {
+                            mPayerField.PopulateComboBox(objList, "Name", "PayerId");
+                        }
+                    }
+                }
+
+            }
+            catch(Exception)
+            {
+
+            }
+
+        }
+
+        private async Task LoadPayees()
+        {
+            try
+            {
+                if (mTransactionService != null)
+                {
+                    if (mPayeeField != null)
+                    {
+                        var payers = await mTransactionService.GetAllPayees();
+                        List<object> objList = new List<object>();
+                        foreach (var item in payers)
+                        {
+                            objList.Add(item);
+                        }
+                        if (payers != null && payers.Count > 0)
+                        {
+                            mPayeeField.PopulateComboBox(objList, "Name", "PayerId");
+                        }
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
+
+        }
+
         #region Private Methods
+        private void NavigateAddPayerPayee ()
+        {
+            this.form = new AddPayerPayee();
+            this.form.OnCloseCallback = this.RefreshData;
+            this.form.Show();
+        }
+
         private void CreateIncomeForm()
         {
             if(mTimeField != null &&
@@ -79,6 +193,7 @@ namespace EADCoursework2.Forms
                 flowPnlInputs.Controls.Add(mPayerField);
                 flowPnlInputs.Controls.Add(mNotesField);
             }
+            LoadData();
         }
 
         private void CreateExpenseeForm()
@@ -95,6 +210,7 @@ namespace EADCoursework2.Forms
                 flowPnlInputs.Controls.Add(mPayeeField);
                 flowPnlInputs.Controls.Add(mNotesField);
             }
+            LoadData();
         }
 
         private bool ResetForm()
@@ -141,8 +257,8 @@ namespace EADCoursework2.Forms
             {
                 if (ResetForm())
                 {
-                    CreateExpenseeForm();
                     SelectedTransactionState = TransactionState.Expense;
+                    CreateExpenseeForm();
                 }
                 toggleIncome.ToggleControl(false);
                 toggleExpense.ToggleControl(true);
@@ -156,8 +272,8 @@ namespace EADCoursework2.Forms
             {
                 if (ResetForm())
                 {
-                    CreateIncomeForm();
                     SelectedTransactionState = TransactionState.Income;
+                    CreateIncomeForm();
                 }
                 toggleIncome.ToggleControl(true);
                 toggleExpense.ToggleControl(false);

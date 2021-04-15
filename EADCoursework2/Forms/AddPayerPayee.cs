@@ -1,4 +1,6 @@
 ﻿using EADCoursework2.CustomControls.InputControls;
+using EADCoursework2.DAL;
+using EADCoursework2.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +19,8 @@ namespace EADCoursework2.Forms
 
         private TextFieldControl mNameField, mAddressField;
         private PayerPayee SelectedPayerPayee;
+        private ITransactionService mTransactionService;
+        public Action OnCloseCallback;
 
         public AddPayerPayee()
         {
@@ -28,7 +32,15 @@ namespace EADCoursework2.Forms
         private void AddEvent_Load(object sender, EventArgs e)
         {
             InitializeUIComponents();
+            Init();
             CreatePayerForm();
+            SelectedPayerPayee = PayerPayee.Payer;
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            OnCloseCallback?.Invoke();
         }
 
         private void InitializeUIComponents()
@@ -44,6 +56,18 @@ namespace EADCoursework2.Forms
             togglePayer.ToggleItemName = "Payer";
 
             togglePayer.ToggleControl(true);
+        }
+
+        private void Init()
+        {
+            try
+            {
+                mTransactionService = new TransactionService();
+            }
+            catch(Exception)
+            {
+
+            }
         }
 
         #region Private Methods
@@ -115,11 +139,48 @@ namespace EADCoursework2.Forms
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             if(ValidateInputFields())
             {
-
+                if(SelectedPayerPayee == PayerPayee.Payee)
+                {
+                    Payee payee = new Payee
+                    {
+                        DateOfBirth = DateTime.Today,
+                        Address = mAddressField.LabelValue,
+                        Name = mNameField.LabelValue
+                    };
+                    Payee p = await mTransactionService.CreatePayee(payee);
+                    if(p.PayeeId != 0)
+                    {
+                        MessageBox.Show("Payee Successfully created!");
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Couldn't create payee. Something went wrong. please try again later");
+                    }
+                }
+                else if(SelectedPayerPayee == PayerPayee.Payer)
+                {
+                    Payer payer = new Payer
+                    {
+                        DateOfBirth = DateTime.Today,
+                        Address = mAddressField.LabelValue,
+                        Name = mNameField.LabelValue
+                    };
+                    Payer p = await mTransactionService.CreatePayer(payer);
+                    if (p.PayerId != 0)
+                    {
+                        MessageBox.Show("Payer Successfully created!");
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Couldn't create payer. Something went wrong. please try again later");
+                    }
+                }
             }
         }
 

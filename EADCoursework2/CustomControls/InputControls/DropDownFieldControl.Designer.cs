@@ -63,6 +63,7 @@ namespace EADCoursework2.CustomControls.InputControls
             this.pctBoxAdd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pctBoxAdd.TabIndex = 4;
             this.pctBoxAdd.TabStop = false;
+            this.pctBoxAdd.Click += new System.EventHandler(this.pctBoxAdd_Click);
             // 
             // DropDownFieldControl
             // 

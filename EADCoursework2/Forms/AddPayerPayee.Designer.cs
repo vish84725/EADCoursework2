@@ -88,7 +88,7 @@ namespace EADCoursework2.Forms
             this.Controls.Add(this.togglePayee);
             this.Controls.Add(this.togglePayer);
             this.Name = "AddPayerPayee";
-            this.Text = "AddEvent";
+            this.Text = "Add Payer/Payee";
             this.Load += new System.EventHandler(this.AddEvent_Load);
             this.ResumeLayout(false);
 
