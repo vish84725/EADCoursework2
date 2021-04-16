@@ -22,7 +22,7 @@ namespace EADCoursework2.Models
 
         [JsonProperty("userid")]
         public int UserId { get; set; }
-        [JsonProperty("user")]
+        [JsonIgnore]
         public User User { get; set; }
         public String TimeString
         {

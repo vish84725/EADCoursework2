@@ -348,12 +348,12 @@ namespace EADCoursework2.Forms
                     {
                         Date = mDateField.Date,
                         Notes = mNotesField.LabelValue.Trim(),
-                        Payee = (Payee)mPayeeField.SelectedDropDownValue,
+                        Payer = (Payer)mPayerField.SelectedDropDownValue,
                         Time = mTimeField.Time,
                         Title = mTitleField.LabelValue.Trim(),
                         User = this.User,
                         UserId = this.User.UserId,
-                        PayeeId = ((Payee)mPayeeField.SelectedDropDownValue).PayeeId
+                        PayerId = ((Payer)mPayerField.SelectedDropDownValue).PayerId
                     };
                     var inc = await CreateIncome(income);
                     if (inc != null && inc.TransactionId != 0)
@@ -371,12 +371,12 @@ namespace EADCoursework2.Forms
                     {
                         Date = mDateField.Date,
                         Notes = mNotesField.LabelValue.Trim(),
-                        Payer = (Payer)mPayeeField.SelectedDropDownValue,
+                        Payee = (Payee)mPayeeField.SelectedDropDownValue,
                         Time = mTimeField.Time,
                         Title = mTitleField.LabelValue.Trim(),
                         User = this.User,
                         UserId = this.User.UserId,
-                        PayerId = ((Payer)mPayeeField.SelectedDropDownValue).PayerId
+                        PayeeId = ((Payee)mPayeeField.SelectedDropDownValue).PayeeId
                     };
                     var exp = await CreateExpense(expense);
                     if (exp != null && exp.TransactionId != 0)

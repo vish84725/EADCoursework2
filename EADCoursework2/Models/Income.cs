@@ -9,21 +9,22 @@ namespace EADCoursework2.Models
 {
     public class Income : Transaction
     {
-        public Payee Payee { get; set; }
+        [JsonIgnore]
+        public Payer Payer { get; set; }
 
-        [JsonProperty("payeeid")]
-        public int PayeeId { get; set; }
+        [JsonProperty("payerid")]
+        public int PayerId { get; set; }
         
         public Income()
         {
 
         }
-        public Income(String title, DateTime date, DateTime time, Payee payee, String notes)
+        public Income(String title, DateTime date, DateTime time, Payer payer, String notes)
         {
             this.Title = title;
             this.Date = date;
             this.Time = time;
-            this.Payee = payee;
+            this.Payer = payer;
             this.Notes = notes;
         }
     }
