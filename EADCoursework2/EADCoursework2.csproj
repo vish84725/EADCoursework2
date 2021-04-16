@@ -128,8 +128,10 @@
     <Compile Include="DAL\IEventService.cs" />
     <Compile Include="DAL\ITransactionService.cs" />
     <Compile Include="DAL\IUserService.cs" />
+    <Compile Include="DAL\RemoteAccessService.cs" />
     <Compile Include="DAL\TransactionService.cs" />
     <Compile Include="DAL\UserService.cs" />
+    <Compile Include="DAL\XmlEngine.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

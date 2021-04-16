@@ -11,7 +11,7 @@ namespace EADCoursework2.DAL
     public class TransactionService: ITransactionService
     {
         private const String BASEURL = Constants.BASEURL;
-
+        RemoteAccessService remoteAccessService = new RemoteAccessService();
         public async Task<Expense> CreateExpense(Expense expense)
         {
             try
@@ -42,6 +42,7 @@ namespace EADCoursework2.DAL
         {
             try
             {
+                remoteAccessService.WriteToXML<Payee>(payee,Constants.PAYEE_CACHE_TAG);
                 var p = await MyWalletAPI<Payee>.PostRequest($"{BASEURL}api/transaction/payee", payee);
                 return p;
             }
@@ -55,6 +56,7 @@ namespace EADCoursework2.DAL
         {
             try
             {
+                remoteAccessService.WriteToXML<Payer>(payer,"Payers");
                 var p = await MyWalletAPI<Payer>.PostRequest($"{BASEURL}api/transaction/payer", payer);
                 return p;
             }

@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace EADCoursework2.Models
 {
+    [Serializable, XmlRoot("Payer")]
     public class Payer
     {
         [JsonProperty("name")]

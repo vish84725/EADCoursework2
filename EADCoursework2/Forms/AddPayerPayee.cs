@@ -1,6 +1,7 @@
 ﻿using EADCoursework2.CustomControls.InputControls;
 using EADCoursework2.DAL;
 using EADCoursework2.Models;
+using EADCoursework2.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,9 +17,10 @@ namespace EADCoursework2.Forms
     public partial class AddPayerPayee : Form
     {
         public enum PayerPayee { Payee, Payer };
+        private RemoteAccessService mRemoteAccessService;
 
         private TextFieldControl mNameField, mAddressField;
-        private PayerPayee SelectedPayerPayee;
+        private PayerPayee SelectedPayerPayee = PayerPayee.Payer;
         private ITransactionService mTransactionService;
         public Action OnCloseCallback;
 
@@ -34,7 +36,6 @@ namespace EADCoursework2.Forms
             InitializeUIComponents();
             Init();
             CreatePayerForm();
-            SelectedPayerPayee = PayerPayee.Payer;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -63,6 +64,9 @@ namespace EADCoursework2.Forms
             try
             {
                 mTransactionService = new TransactionService();
+                mRemoteAccessService = new RemoteAccessService();
+                LoadDataFromRemote();
+
             }
             catch(Exception)
             {
@@ -71,6 +75,45 @@ namespace EADCoursework2.Forms
         }
 
         #region Private Methods
+        private void LoadDataFromRemote()
+        {
+            try
+            {
+                ResetValues();
+
+                var localPayee = mRemoteAccessService.ReadXML<Payee>(Constants.PAYEE_CACHE_TAG);
+                var localPayer = mRemoteAccessService.ReadXML<Payer>(Constants.PAYER_CACHE_TAG);
+
+                if(SelectedPayerPayee == PayerPayee.Payer)
+                {
+                    if(localPayer != null)
+                    {
+                        if(localPayer.Name != null && localPayer.Name.Trim() != string.Empty)
+                            mNameField.LabelValue = localPayer.Name;
+
+                        if (localPayer.Address != null && localPayer.Address.Trim() != string.Empty)
+                            mAddressField.LabelValue = localPayer.Address;
+                    }
+                    
+                }
+                if (SelectedPayerPayee == PayerPayee.Payee)
+                {
+                    if(localPayee != null)
+                    {
+                        if (localPayee.Name != null && localPayee.Name.Trim() != string.Empty)
+                            mNameField.LabelValue = localPayee.Name;
+
+                        if (localPayee.Address != null && localPayee.Address.Trim() != string.Empty)
+                            mAddressField.LabelValue = localPayee.Address;
+                    }
+                    
+                }
+            }
+            catch(Exception e)
+            {
+
+            }
+        }
         private bool ValidateInputFields()
         {
             if (mNameField.LabelValue == null || mNameField.LabelValue.Trim() == string.Empty)
@@ -100,6 +143,15 @@ namespace EADCoursework2.Forms
             }
         }
 
+        private void ResetValues()
+        {
+            if (mNameField != null &&
+                    mAddressField != null)
+            {
+                mNameField.LabelValue = string.Empty;
+                mAddressField.LabelValue = string.Empty;
+            }
+        }
         private bool ResetForm()
         {
             try
@@ -107,8 +159,7 @@ namespace EADCoursework2.Forms
                 if (mNameField != null &&
                     mAddressField != null)
                 {
-                    mNameField.LabelValue = string.Empty;
-                    mAddressField.LabelValue = string.Empty;
+                    ResetValues();
 
                     flowPnlInputs.Controls.Remove(mNameField);
                     flowPnlInputs.Controls.Remove(mAddressField);
@@ -137,6 +188,7 @@ namespace EADCoursework2.Forms
                 togglePayer.ToggleControl(true);
                 togglePayee.ToggleControl(false);
             }
+            LoadDataFromRemote();
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -196,6 +248,7 @@ namespace EADCoursework2.Forms
                 togglePayer.ToggleControl(false);
                 togglePayee.ToggleControl(true);
             }
+            LoadDataFromRemote();
         }
         #endregion
 

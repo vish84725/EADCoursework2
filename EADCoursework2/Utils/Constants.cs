@@ -22,7 +22,14 @@ namespace EADCoursework2.Utils
         public static Color MW_MYEVENT_RED = Color.FromArgb(225, 39, 48);
         public static Color MW_White = Color.White;
 
-        public const String BASEURL = "https://localhost:44314/";
+        public static String PAYEE_CACHE_TAG = "Payees";
+        public static String PAYER_CACHE_TAG = "Payers";
+        public static String PAYEE_INCOME_TAG = "income";
+        public static String PAYEE_EXPENSE_TAG = "expense";
+
+        public const String BASEURL = "https://localhost:5001/";
+        public static String LOCAL_XML_PATH = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//";
+        //public static String LOCAL_XML_PATH = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//MyWalletCache.xml";
 
         public static List<RecurrentDateTypes> RecurrentDateTypes = new List<RecurrentDateTypes>()
         {
