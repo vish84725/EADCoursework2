@@ -124,6 +124,8 @@
     <Compile Include="CustomControls\MyWalletUserControl.Designer.cs">
       <DependentUpon>MyWalletUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="DAL\EventService.cs" />
+    <Compile Include="DAL\IEventService.cs" />
     <Compile Include="DAL\ITransactionService.cs" />
     <Compile Include="DAL\IUserService.cs" />
     <Compile Include="DAL\TransactionService.cs" />
@@ -170,11 +172,15 @@
     <Compile Include="Forms\Register.Designer.cs">
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Models\Income.cs" />
     <Compile Include="Models\MyEventRowItem.cs" />
     <Compile Include="Models\Payee.cs" />
     <Compile Include="Models\Payer.cs" />
+    <Compile Include="Models\RecurrentTypes.cs" />
+    <Compile Include="Models\TaskEvent.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />

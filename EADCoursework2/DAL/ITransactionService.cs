@@ -15,5 +15,7 @@ namespace EADCoursework2.DAL
         Task<Expense> CreateExpense(Expense expense);
         Task<List<Payer>> GetAllPayers();
         Task<List<Payee>> GetAllPayees();
+        Task<List<Income>> GetAllIncome();
+        Task<List<Expense>> GetAllExpense();
     }
 }

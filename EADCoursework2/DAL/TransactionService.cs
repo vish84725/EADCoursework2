@@ -64,6 +64,32 @@ namespace EADCoursework2.DAL
             }
         }
 
+        public async Task<List<Expense>> GetAllExpense()
+        {
+            try
+            {
+                var expenses = await MyWalletAPI<List<Expense>>.Get($"{BASEURL}api/transaction/expense");
+                return expenses;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<List<Income>> GetAllIncome()
+        {
+            try
+            {
+                var incomes = await MyWalletAPI<List<Income>>.Get($"{BASEURL}api/transaction/income");
+                return incomes;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public async Task<List<Payee>> GetAllPayees()
         {
             try

@@ -1,4 +1,7 @@
 ﻿using EADCoursework2.CustomControls.InputControls;
+using EADCoursework2.DAL;
+using EADCoursework2.Models;
+using EADCoursework2.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +17,8 @@ namespace EADCoursework2.Forms
     public partial class AddEvent : Form
     {
         public enum EventState { Task, Appointment };
+        public User User { get; set; }
+        private IEventService mEventService;
 
         private TextFieldControl mTitleField;
         private DateFieldControl mDateField;
@@ -32,7 +37,20 @@ namespace EADCoursework2.Forms
         private void AddEvent_Load(object sender, EventArgs e)
         {
             InitializeUIComponents();
+            Init();
             CreateTaskForm();
+        }
+
+        private void Init()
+        {
+            try
+            {
+                mEventService = new EventService();
+            }
+            catch(Exception)
+            {
+
+            }
         }
 
         private void InitializeUIComponents()
@@ -49,6 +67,12 @@ namespace EADCoursework2.Forms
 
             mRecurrentField = new RecurrentDropDownFieldControl();
             mRecurrentField.LabelKey = "Recurrent";
+            List<object> objList = new List<object>();
+            foreach(var item in Constants.RecurrentDateTypes)
+            {
+                objList.Add(item);
+            }
+            mRecurrentField.PopulateComboBox(objList, "Name", "Id");
 
 
             mNotesField = new MultiTextFieldControl();
@@ -88,7 +112,7 @@ namespace EADCoursework2.Forms
                 flowPnlInputs.Controls.Add(mTitleField);
                 flowPnlInputs.Controls.Add(mDateField);
                 flowPnlInputs.Controls.Add(mTimeField);
-                flowPnlInputs.Controls.Add(mDateField);
+                flowPnlInputs.Controls.Add(mRecurrentField);
                 flowPnlInputs.Controls.Add(mNotesField);
             }
         }
@@ -123,6 +147,119 @@ namespace EADCoursework2.Forms
             }
 
         }
+
+        private RecurrentType GetRecurrentType()
+        {
+            var dropdownValue = mRecurrentField.SelectedDropDownValue as RecurrentDateTypes;
+            if (dropdownValue.Id == (int)RecurrentType.EveryWeek)
+                return RecurrentType.EveryWeek;
+            else if (dropdownValue.Id == (int)RecurrentType.EveryMonth)
+                return RecurrentType.EveryMonth;
+            else if (dropdownValue.Id == (int)RecurrentType.EveryDay)
+                return RecurrentType.EveryDay;
+            return 0;
+        }
+        private List<DateTime> GetRecurrentDates()
+        {
+            List<DateTime> datesList = new List<DateTime>();
+            if(mRecurrentField.CheckBoxValue)
+            {
+                var dropdownValue = mRecurrentField.SelectedDropDownValue as RecurrentDateTypes;
+                if (dropdownValue.Id == (int)RecurrentType.EveryWeek)
+                {
+                    for(int i =0; i< 10; i++)
+                    {
+                        var date = mDateField.Date.AddDays(i * 7);
+                        datesList.Add(date);
+                    }              
+                }
+                else if (dropdownValue.Id == (int)RecurrentType.EveryMonth)
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        var date = mDateField.Date.AddMonths(i * 1);
+                        datesList.Add(date);
+                    }
+                }
+                else if (dropdownValue.Id == (int)RecurrentType.EveryDay)
+                {
+                    for (int i = 0; i < 20; i++)
+                    {
+                        var date = mDateField.Date.AddDays(i * 1);
+                        datesList.Add(date);
+                    }
+                }
+            }
+            else
+            {
+                datesList.Add(mDateField.Date);
+            }
+            return datesList;
+        }
+        private async Task<Appointment> CreateAppointment(Appointment appointment)
+        {
+            try
+            {
+                if (mEventService != null)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    var inc = await mEventService.CreateAppointment(appointment);
+                    Cursor.Current = Cursors.Default;
+                    return inc;
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                Cursor.Current = Cursors.Default;
+                return null;
+            }
+        }
+
+        private async Task<TaskEvent> CreateTask(TaskEvent task)
+        {
+            try
+            {
+                if (mEventService != null)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    var t = await mEventService.CreateTask(task);
+                    Cursor.Current = Cursors.Default;
+                    return t;
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                Cursor.Current = Cursors.Default;
+                return null;
+            }
+        }
+        private bool ValidateTaskFields()
+        {
+            if (mTitleField.LabelValue == null || mTitleField.LabelValue.Trim() == string.Empty)
+                return false;
+            if (mNotesField.LabelValue == null || mNotesField.LabelValue.Trim() == string.Empty)
+                return false;
+            if (mDateField.Date == null)
+                return false;
+            if (mTimeField.Time == null)
+                return false;
+            return true;
+        }
+
+        private bool ValidateAppointmentFields()
+        {
+            if (mTitleField.LabelValue == null || mTitleField.LabelValue.Trim() == string.Empty)
+                return false;
+            if (mNotesField.LabelValue == null || mNotesField.LabelValue.Trim() == string.Empty)
+                return false;
+            if (mDateField.Date == null)
+                return false;
+            if (mTimeField.Time == null)
+                return false;
+            return true;
+        }
         #endregion
 
 
@@ -154,7 +291,63 @@ namespace EADCoursework2.Forms
                 toggleAppointment.ToggleControl(false);
             }
         }
-        #endregion
+        private async void btnSaveEvent_Click(object sender, EventArgs e)
+        {
+            if (SelectedEventState == EventState.Appointment)
+            {
+                if (ValidateAppointmentFields())
+                {
+                    var appointment = new Appointment()
+                    {
+                        Date = GetRecurrentDates(),
+                        Notes = mNotesField.LabelValue.Trim(),
+                        Time = mTimeField.Time,
+                        Title = mTitleField.LabelValue.Trim(),
+                        User = this.User,
+                        UserId = this.User.UserId,
+                        IsRecurrent = mRecurrentField.CheckBoxValue,
+                        RecurrentType = GetRecurrentType()
+                    };
+                    var app = await CreateAppointment(appointment);
+                    if (app != null && app.Id != 0)
+                    {
+                        MessageBox.Show("Appointment created successfully");
+                    }
 
+                }
+                else
+                {
+                    MessageBox.Show("Please fill all the requried fields");
+                }
+            }
+            else if (SelectedEventState == EventState.Task)
+            {
+                if (ValidateTaskFields())
+                {
+                    var task = new TaskEvent()
+                    {
+                        Date = GetRecurrentDates(),
+                        Notes = mNotesField.LabelValue.Trim(),
+                        Time = mTimeField.Time,
+                        Title = mTitleField.LabelValue.Trim(),
+                        User = this.User,
+                        UserId = this.User.UserId,
+                        IsRecurrent = mRecurrentField.CheckBoxValue,
+                        RecurrentType = GetRecurrentType()
+                    };
+                    var t = await CreateTask(task);
+                    if (t != null && t.Id != 0)
+                    {
+                        MessageBox.Show("Task created successfully");
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Please fill all the requried fields");
+                }
+            }
+        }
+        #endregion
     }
 }

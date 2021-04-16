@@ -30,7 +30,7 @@ namespace EADCoursework2.Forms
         private void InitializeComponent()
         {
             this.flowPnlInputs = new System.Windows.Forms.FlowLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSaveEvent = new System.Windows.Forms.Button();
             this.toggleAppointment = new EADCoursework2.CustomControls.Components.ToggleItemControl();
             this.toggleTask = new EADCoursework2.CustomControls.Components.ToggleItemControl();
             this.SuspendLayout();
@@ -43,18 +43,19 @@ namespace EADCoursework2.Forms
             this.flowPnlInputs.Size = new System.Drawing.Size(716, 357);
             this.flowPnlInputs.TabIndex = 6;
             // 
-            // button1
+            // btnSaveEvent
             // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Image = global::EADCoursework2.Properties.Resources.DoneButton;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(600, 451);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(125, 40);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "SAVE";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnSaveEvent.BackColor = System.Drawing.Color.White;
+            this.btnSaveEvent.ForeColor = System.Drawing.Color.Black;
+            this.btnSaveEvent.Image = global::EADCoursework2.Properties.Resources.DoneButton;
+            this.btnSaveEvent.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSaveEvent.Location = new System.Drawing.Point(600, 451);
+            this.btnSaveEvent.Name = "btnSaveEvent";
+            this.btnSaveEvent.Size = new System.Drawing.Size(125, 40);
+            this.btnSaveEvent.TabIndex = 7;
+            this.btnSaveEvent.Text = "SAVE";
+            this.btnSaveEvent.UseVisualStyleBackColor = false;
+            this.btnSaveEvent.Click += new System.EventHandler(this.btnSaveEvent_Click);
             // 
             // toggleAppointment
             // 
@@ -82,7 +83,7 @@ namespace EADCoursework2.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 503);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnSaveEvent);
             this.Controls.Add(this.flowPnlInputs);
             this.Controls.Add(this.toggleAppointment);
             this.Controls.Add(this.toggleTask);
@@ -98,6 +99,6 @@ namespace EADCoursework2.Forms
         private CustomControls.Components.ToggleItemControl toggleAppointment;
         private CustomControls.Components.ToggleItemControl toggleTask;
         private System.Windows.Forms.FlowLayoutPanel flowPnlInputs;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSaveEvent;
     }
 }

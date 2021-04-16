@@ -16,7 +16,15 @@ namespace EADCoursework2.CustomControls.InputControls
         {
             get
             {
-                return cmbBoxValue.SelectedValue;
+                return cmbBoxValue.SelectedItem;
+            }
+        }
+
+        public bool CheckBoxValue
+        {
+            get
+            {
+                return chkBoxSelect.Checked;
             }
         }
         public String LabelKey
@@ -43,5 +51,14 @@ namespace EADCoursework2.CustomControls.InputControls
                 cmbBoxValue.Visible = false;
             }
         }
+
+        #region Public Methods 
+        public void PopulateComboBox(List<object> list, string displayMember, string valueMember)
+        {
+            cmbBoxValue.DataSource = list;
+            cmbBoxValue.DisplayMember = displayMember;
+            cmbBoxValue.ValueMember = valueMember;
+        }
+        #endregion
     }
 }

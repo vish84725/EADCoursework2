@@ -1,4 +1,5 @@
 ﻿using EADCoursework2.Forms;
+using EADCoursework2.Models;
 using EADCoursework2.Utils;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace EADCoursework2.CustomControls
 {
     public partial class MyEventsUserControl : UserControl
     {
+        public User LoggedInUser { get; set; }
         public enum ViewDisplayState
         {
             All,Events, Transactions
@@ -102,6 +104,7 @@ namespace EADCoursework2.CustomControls
         private void addEventPictureBox_Click(object sender, EventArgs e)
         {
             AddEvent form = new AddEvent();
+            form.User = LoggedInUser;
             form.ShowDialog();
         }
         private void ToggleTransactions_Click(object sender, EventArgs e)

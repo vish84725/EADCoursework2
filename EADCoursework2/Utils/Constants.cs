@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EADCoursework2.Models;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -22,5 +23,25 @@ namespace EADCoursework2.Utils
         public static Color MW_White = Color.White;
 
         public const String BASEURL = "https://localhost:44314/";
+
+        public static List<RecurrentDateTypes> RecurrentDateTypes = new List<RecurrentDateTypes>()
+        {
+            new RecurrentDateTypes()
+            {
+                Id = 1,
+                Name ="Every Week"
+            },
+            new RecurrentDateTypes()
+            {
+                Id = 2,
+                Name ="Every Month"
+            },
+            new RecurrentDateTypes()
+            {
+                Id = 3,
+                Name ="Every Day"
+            }
+        };
+        
     }
 }

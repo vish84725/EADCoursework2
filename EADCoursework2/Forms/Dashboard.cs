@@ -36,7 +36,7 @@ namespace EADCoursework2.Forms
         private void InitializeUIComponents()
         {
             mWallet = new MyWalletUserControl() { LoggedInUser = this.LoggedInUser };
-            mEvents = new MyEventsUserControl();
+            mEvents = new MyEventsUserControl() { LoggedInUser = this.LoggedInUser };
 
             //Set tab headers details
             tabHeaderMyEvents.SetHeaderItemType(Utils.TabHeaderItem.MyEvents);
