@@ -40,7 +40,7 @@ namespace EADCoursework2.Forms
             this.flowPnlInputs.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPnlInputs.Location = new System.Drawing.Point(34, 77);
             this.flowPnlInputs.Name = "flowPnlInputs";
-            this.flowPnlInputs.Size = new System.Drawing.Size(716, 357);
+            this.flowPnlInputs.Size = new System.Drawing.Size(716, 429);
             this.flowPnlInputs.TabIndex = 0;
             // 
             // button1
@@ -49,7 +49,7 @@ namespace EADCoursework2.Forms
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Image = global::EADCoursework2.Properties.Resources.DoneButton;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(610, 473);
+            this.button1.Location = new System.Drawing.Point(610, 512);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(125, 40);
             this.button1.TabIndex = 1;
@@ -82,7 +82,7 @@ namespace EADCoursework2.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 525);
+            this.ClientSize = new System.Drawing.Size(806, 561);
             this.Controls.Add(this.toggleExpense);
             this.Controls.Add(this.toggleIncome);
             this.Controls.Add(this.button1);

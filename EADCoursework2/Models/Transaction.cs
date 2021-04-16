@@ -15,6 +15,8 @@ namespace EADCoursework2.Models
         public String Title { get; set; }
         [JsonProperty("date")]
         public DateTime Date { get; set; }
+        [JsonProperty("amount")]
+        public double Amount { get; set; }
         [JsonProperty("time")]
         public DateTime Time { get; set; }
         [JsonProperty("notes")]

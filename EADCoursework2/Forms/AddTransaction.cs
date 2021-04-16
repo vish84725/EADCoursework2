@@ -18,7 +18,7 @@ namespace EADCoursework2.Forms
         public User User { get; set; }
         public enum TransactionState { Income, Expense};
 
-        private TextFieldControl mTitleField;
+        private TextFieldControl mTitleField, mAmountField;
         private DateFieldControl mDateField;
         private TimePickerControl mTimeField;
         private DropDownFieldControl mPayerField, mPayeeField;
@@ -64,6 +64,9 @@ namespace EADCoursework2.Forms
 
             mDateField = new DateFieldControl();
             mDateField.LabelKey = "Date";
+
+            mAmountField = new TextFieldControl();
+            mAmountField.LabelKey = "Amount";
 
             mTimeField = new TimePickerControl();
             mTimeField.LabelKey = "Time";
@@ -193,6 +196,8 @@ namespace EADCoursework2.Forms
                 return false;
             if (mPayerField.SelectedDropDownValue == null)
                 return false;
+            if (!Double.TryParse(mAmountField.LabelValue, out double result) || Double.Parse(mAmountField.LabelValue) == 0)
+                return false;
             return true;
         }
 
@@ -208,6 +213,8 @@ namespace EADCoursework2.Forms
                 return false;
             if (mPayeeField.SelectedDropDownValue == null)
                 return false;
+            if (!Double.TryParse(mAmountField.LabelValue, out double result) || Double.Parse(mAmountField.LabelValue) == 0)
+                return false;
             return true;
         }
 
@@ -216,12 +223,14 @@ namespace EADCoursework2.Forms
             if(mTimeField != null &&
                 mTitleField != null && 
                 mDateField != null && 
-                mPayerField != null && 
+                mPayerField != null &&
+                mAmountField != null &&
                 mNotesField != null)
             {
                 flowPnlInputs.Controls.Add(mTitleField);
                 flowPnlInputs.Controls.Add(mDateField);
                 flowPnlInputs.Controls.Add(mTimeField);
+                flowPnlInputs.Controls.Add(mAmountField);
                 flowPnlInputs.Controls.Add(mPayerField);
                 flowPnlInputs.Controls.Add(mNotesField);
             }
@@ -234,11 +243,13 @@ namespace EADCoursework2.Forms
                 mTitleField != null &&
                 mDateField != null &&
                 mPayerField != null &&
+                mAmountField != null &&
                 mNotesField != null)
             {
                 flowPnlInputs.Controls.Add(mTitleField);
                 flowPnlInputs.Controls.Add(mDateField);
                 flowPnlInputs.Controls.Add(mTimeField);
+                flowPnlInputs.Controls.Add(mAmountField);
                 flowPnlInputs.Controls.Add(mPayeeField);
                 flowPnlInputs.Controls.Add(mNotesField);
             }
@@ -252,16 +263,19 @@ namespace EADCoursework2.Forms
                 if (mTimeField != null &&
                     mTitleField != null &&
                     mDateField != null &&
+                    mAmountField != null &&
                     mNotesField != null)
                 {
                     mTitleField.LabelValue = string.Empty;
                     mNotesField.LabelValue = string.Empty;
+                    mAmountField.LabelValue = string.Empty;
 
                     flowPnlInputs.Controls.Remove(mTitleField);
                     flowPnlInputs.Controls.Remove(mDateField);
                     flowPnlInputs.Controls.Remove(mTimeField);
                     flowPnlInputs.Controls.Remove(mPayerField);
                     flowPnlInputs.Controls.Remove(mNotesField);
+                    flowPnlInputs.Controls.Remove(mAmountField);
                 }
 
                 if(mPayeeField != null)
@@ -353,6 +367,7 @@ namespace EADCoursework2.Forms
                         Title = mTitleField.LabelValue.Trim(),
                         User = this.User,
                         UserId = this.User.UserId,
+                        Amount = Double.Parse(mAmountField.LabelValue),
                         PayerId = ((Payer)mPayerField.SelectedDropDownValue).PayerId
                     };
                     var inc = await CreateIncome(income);
@@ -375,6 +390,7 @@ namespace EADCoursework2.Forms
                         Time = mTimeField.Time,
                         Title = mTitleField.LabelValue.Trim(),
                         User = this.User,
+                        Amount = Double.Parse(mAmountField.LabelValue),
                         UserId = this.User.UserId,
                         PayeeId = ((Payee)mPayeeField.SelectedDropDownValue).PayeeId
                     };
