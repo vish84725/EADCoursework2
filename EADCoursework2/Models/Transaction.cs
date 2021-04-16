@@ -33,5 +33,11 @@ namespace EADCoursework2.Models
                 return Time.ToString();
             }
         }
+
+        //for range api calls
+        [JsonProperty("fromdate")]
+        public DateTime FromDate { get; set; }
+        [JsonProperty("todate")]
+        public DateTime ToDate { get; set; }
     }
 }

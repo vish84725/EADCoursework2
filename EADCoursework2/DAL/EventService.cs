@@ -38,6 +38,19 @@ namespace EADCoursework2.DAL
             }
         }
 
+        public async Task<List<Appointment>> GetAllAppointmentRange(List<Appointment> dto)
+        {
+            try
+            {
+                var t = await MyWalletAPI<List<Appointment>>.PostRequest($"{BASEURL}api/event/appointments/range", dto);
+                return t;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public async Task<List<Appointment>> GetAllAppointments()
         {
             try
@@ -57,6 +70,19 @@ namespace EADCoursework2.DAL
             {
                 var tasks = await MyWalletAPI<List<TaskEvent>>.Get($"{BASEURL}api/event/task");
                 return tasks;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<List<TaskEvent>> GetAllTasksRange(List<TaskEvent> dto)
+        {
+            try
+            {
+                var t = await MyWalletAPI< List<TaskEvent>>.PostRequest($"{BASEURL}api/event/task/range", dto);
+                return t;
             }
             catch (Exception e)
             {

@@ -28,6 +28,12 @@ namespace EADCoursework2.Models
         public int UserId { get; set; }
         [JsonIgnore]
         public virtual User User { get; set; }
+
+        //for dange api calls
+        [JsonProperty("fromdate")]
+        public DateTime FromDate { get; set; }
+        [JsonProperty("todate")]
+        public DateTime ToDate { get; set; }
     }
 
     public enum RecurrentType

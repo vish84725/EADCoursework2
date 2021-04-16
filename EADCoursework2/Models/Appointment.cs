@@ -8,5 +8,6 @@ namespace EADCoursework2.Models
 {
     public class Appointment: Event
     {
+
     }
 }

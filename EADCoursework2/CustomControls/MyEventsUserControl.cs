@@ -1,4 +1,5 @@
-﻿using EADCoursework2.Forms;
+﻿using EADCoursework2.DAL;
+using EADCoursework2.Forms;
 using EADCoursework2.Models;
 using EADCoursework2.Utils;
 using System;
@@ -16,6 +17,10 @@ namespace EADCoursework2.CustomControls
     public partial class MyEventsUserControl : UserControl
     {
         public User LoggedInUser { get; set; }
+        private ITransactionService mTransactionService;
+        private IEventService mEventService;
+        private List<Transaction> mTransactions;
+        private List<Event> mEvents;
         public enum ViewDisplayState
         {
             All,Events, Transactions
@@ -30,6 +35,19 @@ namespace EADCoursework2.CustomControls
             toggleTransactions.Click += ToggleTransactions_Click;
         }
 
+        private void Init()
+        {
+            try
+            {
+                mTransactionService = new TransactionService();
+                mEventService = new EventService();
+            }
+            catch(Exception)
+            {
+
+            }
+        }
+
         private void MyEventsUserControl_Load(object sender, EventArgs e)
         {
             InitializeUIComponents();
@@ -37,6 +55,90 @@ namespace EADCoursework2.CustomControls
         }
 
         #region Private Methods
+        private async Task LoadAllData()
+        {
+            var incomes = await LoadIncomes();
+            var expenses = await LoadExpenses();
+            var tasks = await LoadTasks();
+            var appointments = await LoadAppointments();
+        }
+        private async Task<List<Appointment>> LoadAppointments()
+        {
+            try
+            {
+                var appointments = await mEventService.GetAllAppointmentRange(new List<Appointment>()
+                {
+                    new Appointment()
+                    {
+                        FromDate = datePickerFrom.Value,
+                        ToDate = datePickerTo.Value
+                    }
+                });
+                return appointments;
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+        }
+        private async Task<List<TaskEvent>> LoadTasks()
+        {
+            try
+            {
+                var tasks = await mEventService.GetAllTasksRange(new List<TaskEvent>()
+                {
+                    new TaskEvent()
+                    {
+                        FromDate = datePickerFrom.Value,
+                        ToDate = datePickerTo.Value
+                    }
+                });
+                return tasks;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        private async Task<List<Income>> LoadIncomes()
+        {
+            try
+            {
+                var tasks = await mTransactionService.GetAllIncomeRange(new List<Income>()
+                {
+                    new Income()
+                    {
+                        FromDate = datePickerFrom.Value,
+                        ToDate = datePickerTo.Value
+                    }
+                });
+                return tasks;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        private async Task<List<Expense>> LoadExpenses()
+        {
+            try
+            {
+                var expenses = await mTransactionService.GetAllExpenseRange(new List<Expense>()
+                {
+                    new Expense()
+                    {
+                        FromDate = datePickerFrom.Value,
+                        ToDate = datePickerTo.Value
+                    }
+                });
+                return expenses;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
         private void InitializeUIComponents()
         {
             //set background color
@@ -123,5 +225,9 @@ namespace EADCoursework2.CustomControls
         }
         #endregion
 
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

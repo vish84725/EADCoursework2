@@ -77,12 +77,38 @@ namespace EADCoursework2.DAL
             }
         }
 
+        public async Task<List<Expense>> GetAllExpenseRange(List<Expense> dto)
+        {
+            try
+            {
+                var t = await MyWalletAPI<List<Expense>>.PostRequest($"{BASEURL}api/transaction/expense/range", dto);
+                return t;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public async Task<List<Income>> GetAllIncome()
         {
             try
             {
                 var incomes = await MyWalletAPI<List<Income>>.Get($"{BASEURL}api/transaction/income");
                 return incomes;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<List<Income>> GetAllIncomeRange(List<Income> dto)
+        {
+            try
+            {
+                var t = await MyWalletAPI<List<Income>>.PostRequest($"{BASEURL}api/transaction/income/range", dto);
+                return t;
             }
             catch (Exception e)
             {

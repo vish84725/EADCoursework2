@@ -13,5 +13,7 @@ namespace EADCoursework2.DAL
         Task<TaskEvent> CreateTask(TaskEvent task);
         Task<List<TaskEvent>> GetAllTasks();
         Task<List<Appointment>> GetAllAppointments();
+        Task<List<TaskEvent>> GetAllTasksRange(List<TaskEvent> dto);
+        Task<List<Appointment>> GetAllAppointmentRange(List<Appointment> dto);
     }
 }
