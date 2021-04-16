@@ -1,4 +1,5 @@
-﻿using EADCoursework2.Utils;
+﻿using EADCoursework2.Models;
+using EADCoursework2.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,10 @@ namespace EADCoursework2.CustomControls
             {
                 this.lblDate.Text = value;
             }
+            get
+            {
+                return this.lblDate.Text;
+            }
         }
         public String Day
         {
@@ -27,7 +32,13 @@ namespace EADCoursework2.CustomControls
             {
                 this.lblDay.Text = value;
             }
+            get
+            {
+                return this.lblDay.Text;
+            }
         }
+
+        public List<MyEventSubRowItem> RowItems { get; set; } = new List<MyEventSubRowItem>();
         #endregion
         public MyEventsRowItem()
         {
@@ -50,19 +61,30 @@ namespace EADCoursework2.CustomControls
 
         private void PopulateSubItems()
         {
-            for(int i=0; i < 3; i ++)
+            //for(int i=0; i < 3; i ++)
+            //{
+            //    subItemsFlowLayout.Controls.Add(new MyEventsSubRowItem()
+            //    {
+            //        Item = new Models.MyEventSubRowItem()
+            //        {
+            //            Description = "I have an appointment for this date with Moriati, Please be ready. This will take a hour",
+            //            Title = "My First Appointment",
+            //            Type = Models.MyEventType.Appointment,
+            //            Value = "9.00am"
+            //        }
+            //    });
+            //}
+            if(RowItems != null && RowItems.Count > 0)
             {
-                subItemsFlowLayout.Controls.Add(new MyEventsSubRowItem()
+                foreach (var item in RowItems)
                 {
-                    Item = new Models.MyEventSubRowItem()
+                    subItemsFlowLayout.Controls.Add(new MyEventsSubRowItem()
                     {
-                        Description = "I have an appointment for this date with Moriati, Please be ready. This will take a hour",
-                        Title = "My First Appointment",
-                        Type = Models.MyEventType.Appointment,
-                        Value = "9.00am"
-                    }
-                });
+                        Item = item
+                    }); 
+                }
             }
+            
         }
 
         #endregion

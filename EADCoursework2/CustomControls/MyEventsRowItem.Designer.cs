@@ -58,7 +58,7 @@ namespace EADCoursework2.CustomControls
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LightGray;
-            this.panel1.Location = new System.Drawing.Point(113, 8);
+            this.panel1.Location = new System.Drawing.Point(126, 8);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(2, 160);
             this.panel1.TabIndex = 2;

@@ -42,7 +42,7 @@ namespace EADCoursework2.DAL
         {
             try
             {
-                var t = await MyWalletAPI<List<Appointment>>.PostRequest($"{BASEURL}api/event/appointments/range", dto);
+                var t = await MyWalletAPI<List<Appointment>>.PostRequest($"{BASEURL}api/event/appointment/range", dto);
                 return t;
             }
             catch (Exception e)

@@ -173,6 +173,7 @@
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\DateRangeDTO.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Models\Income.cs" />
