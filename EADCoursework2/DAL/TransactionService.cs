@@ -16,12 +16,15 @@ namespace EADCoursework2.DAL
         {
             try
             {
+                remoteAccessService.WriteToXML<Expense>(expense);
                 var ex = await MyWalletAPI<Expense>.PostRequest($"{BASEURL}api/transaction/expense", expense);
+                if (ex != null && ex.TransactionId != 0)
+                    remoteAccessService.ClearCachedObject<Expense>(expense);
                 return ex;
             }
             catch (Exception e)
             {
-                throw e;
+                return new Expense();
             }
         }
 
@@ -29,12 +32,15 @@ namespace EADCoursework2.DAL
         {
             try
             {
+                remoteAccessService.WriteToXML<Income>(income);
                 var inc = await MyWalletAPI<Income>.PostRequest($"{BASEURL}api/transaction/income", income);
+                if (inc != null && inc.TransactionId != 0)
+                    remoteAccessService.ClearCachedObject<Income>(income);
                 return inc;
             }
             catch (Exception e)
             {
-                throw e;
+                return new Income();
             }
         }
 
@@ -42,13 +48,15 @@ namespace EADCoursework2.DAL
         {
             try
             {
-                remoteAccessService.WriteToXML<Payee>(payee,Constants.PAYEE_CACHE_TAG);
+                remoteAccessService.WriteToXML<Payee>(payee);
                 var p = await MyWalletAPI<Payee>.PostRequest($"{BASEURL}api/transaction/payee", payee);
+                if (p != null && p.PayeeId != 0)
+                    remoteAccessService.ClearCachedObject<Payee>(payee);
                 return p;
             }
             catch(Exception e)
             {
-                throw e;
+                return new Payee();
             }
         }
 
@@ -56,13 +64,15 @@ namespace EADCoursework2.DAL
         {
             try
             {
-                remoteAccessService.WriteToXML<Payer>(payer,"Payers");
+                remoteAccessService.WriteToXML<Payer>(payer);
                 var p = await MyWalletAPI<Payer>.PostRequest($"{BASEURL}api/transaction/payer", payer);
+                if (p != null && p.PayerId != 0)
+                    remoteAccessService.ClearCachedObject<Payer>(payer);
                 return p;
             }
             catch (Exception e)
             {
-                throw e;
+                return new Payer();
             }
         }
 
@@ -75,7 +85,7 @@ namespace EADCoursework2.DAL
             }
             catch (Exception e)
             {
-                throw e;
+                return new List<Expense>();
             }
         }
 
@@ -88,7 +98,7 @@ namespace EADCoursework2.DAL
             }
             catch (Exception e)
             {
-                throw e;
+                return new List<Expense>();
             }
         }
 

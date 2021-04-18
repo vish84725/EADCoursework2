@@ -81,8 +81,8 @@ namespace EADCoursework2.Forms
             {
                 ResetValues();
 
-                var localPayee = mRemoteAccessService.ReadXML<Payee>(Constants.PAYEE_CACHE_TAG);
-                var localPayer = mRemoteAccessService.ReadXML<Payer>(Constants.PAYER_CACHE_TAG);
+                var localPayee = mRemoteAccessService.ReadXML<Payee>();
+                var localPayer = mRemoteAccessService.ReadXML<Payer>();
 
                 if(SelectedPayerPayee == PayerPayee.Payer)
                 {
@@ -212,6 +212,7 @@ namespace EADCoursework2.Forms
                     else
                     {
                         MessageBox.Show("Couldn't create payee. Something went wrong. please try again later");
+                        this.Close();
                     }
                 }
                 else if(SelectedPayerPayee == PayerPayee.Payer)
@@ -231,6 +232,7 @@ namespace EADCoursework2.Forms
                     else
                     {
                         MessageBox.Show("Couldn't create payer. Something went wrong. please try again later");
+                        this.Close();
                     }
                 }
             }

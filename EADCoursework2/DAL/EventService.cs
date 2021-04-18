@@ -11,17 +11,21 @@ namespace EADCoursework2.DAL
     public class EventService : IEventService
     {
         private const String BASEURL = Constants.BASEURL;
+        RemoteAccessService remoteAccessService = new RemoteAccessService();
 
         public async Task<Appointment> CreateAppointment(Appointment appointment)
         {
             try
             {
+                remoteAccessService.WriteToXML<Appointment>(appointment);
                 var app = await MyWalletAPI<Appointment>.PostRequest($"{BASEURL}api/event/appointment", appointment);
+                if (app != null && app.Id != 0)
+                    remoteAccessService.ClearCachedObject<Appointment>(appointment);
                 return app;
             }
             catch (Exception e)
             {
-                throw e;
+                return new Appointment();
             }
         }
 
@@ -29,12 +33,15 @@ namespace EADCoursework2.DAL
         {
             try
             {
+                remoteAccessService.WriteToXML<TaskEvent>(task);
                 var t = await MyWalletAPI<TaskEvent>.PostRequest($"{BASEURL}api/event/task", task);
+                if (t != null && t.Id != 0)
+                    remoteAccessService.ClearCachedObject<TaskEvent>(task);
                 return t;
             }
             catch (Exception e)
             {
-                throw e;
+                return new TaskEvent();
             }
         }
 

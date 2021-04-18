@@ -18,6 +18,10 @@ namespace EADCoursework2.CustomControls.InputControls
             {
                 return datePicker.Value;
             }
+            set
+            {
+                datePicker.Value = value;
+            }
         }
         public String LabelKey
         {

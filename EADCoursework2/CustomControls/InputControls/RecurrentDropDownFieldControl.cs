@@ -18,6 +18,10 @@ namespace EADCoursework2.CustomControls.InputControls
             {
                 return cmbBoxValue.SelectedItem;
             }
+            set
+            {
+                cmbBoxValue.SelectedItem = value;
+            }
         }
 
         public bool CheckBoxValue
@@ -25,6 +29,10 @@ namespace EADCoursework2.CustomControls.InputControls
             get
             {
                 return chkBoxSelect.Checked;
+            }
+            set
+            {
+                chkBoxSelect.Checked = value;
             }
         }
         public String LabelKey

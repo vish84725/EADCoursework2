@@ -129,6 +129,7 @@
     <Compile Include="DAL\ITransactionService.cs" />
     <Compile Include="DAL\IUserService.cs" />
     <Compile Include="DAL\RemoteAccessService.cs" />
+    <Compile Include="DAL\Serializer.cs" />
     <Compile Include="DAL\TransactionService.cs" />
     <Compile Include="DAL\UserService.cs" />
     <Compile Include="DAL\XmlEngine.cs" />

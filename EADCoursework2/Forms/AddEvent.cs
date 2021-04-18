@@ -17,6 +17,7 @@ namespace EADCoursework2.Forms
     public partial class AddEvent : Form
     {
         public enum EventState { Task, Appointment };
+        private RemoteAccessService mRemoteAccessService;
         public User User { get; set; }
         private IEventService mEventService;
 
@@ -25,7 +26,7 @@ namespace EADCoursework2.Forms
         private TimePickerControl mTimeField;
         private RecurrentDropDownFieldControl mRecurrentField;
         private MultiTextFieldControl mNotesField;
-        private EventState SelectedEventState;
+        private EventState SelectedEventState = EventState.Task;
 
         public AddEvent()
         {
@@ -46,6 +47,8 @@ namespace EADCoursework2.Forms
             try
             {
                 mEventService = new EventService();
+                mRemoteAccessService = new RemoteAccessService();
+                LoadRemoteData();
             }
             catch(Exception)
             {
@@ -100,7 +103,68 @@ namespace EADCoursework2.Forms
                 flowPnlInputs.Controls.Add(mNotesField);
             }
         }
+        private void LoadRemoteData()
+        {
+            try
+            {
+                if(mRemoteAccessService != null)
+                {
+                    if(SelectedEventState == EventState.Appointment)
+                    {
+                        var localEvent = mRemoteAccessService.ReadXML<Appointment>();
+                        if (localEvent != null)
+                        {
+                            mTitleField.LabelValue = localEvent.Title;
+                            mNotesField.LabelValue = localEvent.Notes;
+                            mRecurrentField.CheckBoxValue = localEvent.IsRecurrent;
 
+                            if (localEvent.IsRecurrent)
+                            {
+                                if (localEvent.RecurrentType == RecurrentType.EveryWeek)
+                                    mRecurrentField.SelectedDropDownValue = (int)RecurrentType.EveryWeek;
+                                else if (localEvent.RecurrentType == RecurrentType.EveryMonth)
+                                    mRecurrentField.SelectedDropDownValue = (int)RecurrentType.EveryMonth;
+                                else if (localEvent.RecurrentType == RecurrentType.EveryDay)
+                                    mRecurrentField.SelectedDropDownValue = (int)RecurrentType.EveryDay;
+                            }
+                            if (localEvent.Date != null && localEvent.Date.Count > 0)
+                                mDateField.Date = localEvent.Date[0];
+
+
+                        }
+                    }
+                    else if(SelectedEventState == EventState.Task)
+                    {
+                        var localEvent = mRemoteAccessService.ReadXML<TaskEvent>();
+                        if (localEvent != null)
+                        {
+                            mTitleField.LabelValue = localEvent.Title;
+                            mNotesField.LabelValue = localEvent.Notes;
+                            mRecurrentField.CheckBoxValue = localEvent.IsRecurrent;
+
+                            if (localEvent.IsRecurrent)
+                            {
+                                if (localEvent.RecurrentType == RecurrentType.EveryWeek)
+                                    mRecurrentField.SelectedDropDownValue = (int)RecurrentType.EveryWeek;
+                                else if (localEvent.RecurrentType == RecurrentType.EveryMonth)
+                                    mRecurrentField.SelectedDropDownValue = (int)RecurrentType.EveryMonth;
+                                else if (localEvent.RecurrentType == RecurrentType.EveryDay)
+                                    mRecurrentField.SelectedDropDownValue = (int)RecurrentType.EveryDay;
+                            }
+                            if (localEvent.Date != null && localEvent.Date.Count > 0)
+                                mDateField.Date = localEvent.Date[0];
+
+
+                        }
+                    }
+                    
+                }
+            }
+            catch(Exception)
+            {
+
+            }
+        }
         private void CreateAppointmentForm()
         {
             if (mTimeField != null &&
@@ -128,7 +192,8 @@ namespace EADCoursework2.Forms
                 {
                     mTitleField.LabelValue = string.Empty;
                     mNotesField.LabelValue = string.Empty;
-
+                    mRecurrentField.CheckBoxValue = false;
+                    
                     flowPnlInputs.Controls.Remove(mTitleField);
                     flowPnlInputs.Controls.Remove(mDateField);
                     flowPnlInputs.Controls.Remove(mTimeField);
@@ -275,6 +340,7 @@ namespace EADCoursework2.Forms
                 }
                 toggleTask.ToggleControl(false);
                 toggleAppointment.ToggleControl(true);
+                LoadRemoteData();
             }
         }
 
@@ -289,6 +355,7 @@ namespace EADCoursework2.Forms
                 }
                 toggleTask.ToggleControl(true);
                 toggleAppointment.ToggleControl(false);
+                LoadRemoteData();
             }
         }
         private async void btnSaveEvent_Click(object sender, EventArgs e)
@@ -312,6 +379,12 @@ namespace EADCoursework2.Forms
                     if (app != null && app.Id != 0)
                     {
                         MessageBox.Show("Appointment created successfully");
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Something went wrong, please try again later");
+                        this.Close();
                     }
 
                 }
@@ -339,6 +412,12 @@ namespace EADCoursework2.Forms
                     if (t != null && t.Id != 0)
                     {
                         MessageBox.Show("Task created successfully");
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Something went wrong, please try again later");
+                        this.Close();
                     }
 
                 }
