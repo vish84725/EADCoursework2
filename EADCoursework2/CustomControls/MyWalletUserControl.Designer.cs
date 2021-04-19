@@ -89,6 +89,7 @@ namespace EADCoursework2.CustomControls
             this.btnFinancialStatus.TabIndex = 1;
             this.btnFinancialStatus.Text = "Predict My Financial Status";
             this.btnFinancialStatus.UseVisualStyleBackColor = false;
+            this.btnFinancialStatus.Click += new System.EventHandler(this.btnFinancialStatus_Click);
             // 
             // btnallTansactions
             // 

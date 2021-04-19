@@ -169,6 +169,12 @@
     <Compile Include="Forms\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PredictFinancialStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PredictFinancialStatus.Designer.cs">
+      <DependentUpon>PredictFinancialStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Register.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,6 +189,7 @@
     <Compile Include="Models\MyEventRowItem.cs" />
     <Compile Include="Models\Payee.cs" />
     <Compile Include="Models\Payer.cs" />
+    <Compile Include="Models\PredictionDTO.cs" />
     <Compile Include="Models\RecurrentTypes.cs" />
     <Compile Include="Models\TaskEvent.cs" />
     <Compile Include="Models\Transaction.cs" />
@@ -242,6 +249,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PredictFinancialStatus.resx">
+      <DependentUpon>PredictFinancialStatus.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Register.resx">
       <DependentUpon>Register.cs</DependentUpon>

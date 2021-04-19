@@ -153,5 +153,18 @@ namespace EADCoursework2.DAL
                 throw e;
             }
         }
+
+        public async Task<PredictionDTO> GetPrediction(PredictionDTO dto)
+        {
+            try
+            {
+                var t = await MyWalletAPI<PredictionDTO>.PostRequest($"{BASEURL}api/transaction/prediction", dto);
+                return t;
+            }
+            catch (Exception e)
+            {
+                return new PredictionDTO();
+            }
+        }
     }
 }

@@ -46,5 +46,11 @@ namespace EADCoursework2.CustomControls
             AddPayerPayee form = new AddPayerPayee();
             form.Show();
         }
+
+        private void btnFinancialStatus_Click(object sender, EventArgs e)
+        {
+            PredictFinancialStatus form = new PredictFinancialStatus();
+            form.ShowDialog();
+        }
     }
 }
