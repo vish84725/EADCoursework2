@@ -29,11 +29,12 @@ namespace EADCoursework2.CustomControls
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyEventsSubRowItem));
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
             this.lblValue = new System.Windows.Forms.Label();
             this.lblType = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
@@ -77,17 +78,18 @@ namespace EADCoursework2.CustomControls
             this.lblType.TabIndex = 3;
             this.lblType.Text = "label4";
             // 
-            // button1
+            // btnEdit
             // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Image = global::EADCoursework2.Properties.Resources.MyReportsBlack;
-            this.button1.Location = new System.Drawing.Point(430, 64);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(63, 48);
-            this.button1.TabIndex = 4;
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnEdit.BackColor = System.Drawing.Color.White;
+            this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEdit.ForeColor = System.Drawing.Color.White;
+            this.btnEdit.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit.Image")));
+            this.btnEdit.Location = new System.Drawing.Point(430, 64);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(63, 48);
+            this.btnEdit.TabIndex = 4;
+            this.btnEdit.UseVisualStyleBackColor = false;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // panel1
             // 
@@ -103,7 +105,7 @@ namespace EADCoursework2.CustomControls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.lblType);
             this.Controls.Add(this.lblValue);
             this.Controls.Add(this.lblDescription);
@@ -123,7 +125,7 @@ namespace EADCoursework2.CustomControls
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.Label lblValue;
         private System.Windows.Forms.Label lblType;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Panel panel1;
     }
 }

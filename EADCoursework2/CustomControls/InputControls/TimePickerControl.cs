@@ -18,6 +18,10 @@ namespace EADCoursework2.CustomControls.InputControls
             {
                 return timePicker.Value;
             }
+            set
+            {
+                timePicker.Value = value;
+            }
         }
         public String LabelKey
         {

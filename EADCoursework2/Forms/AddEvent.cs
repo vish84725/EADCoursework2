@@ -16,7 +16,9 @@ namespace EADCoursework2.Forms
 {
     public partial class AddEvent : Form
     {
-        public enum EventState { Task, Appointment };
+        public enum EventState { Task, Appointment, EditTask,EditAppointment };
+        public Event EditModeEvent { get; set; }
+        private int EditModeEventId { get; set; }
         private RemoteAccessService mRemoteAccessService;
         public User User { get; set; }
         private IEventService mEventService;
@@ -26,7 +28,7 @@ namespace EADCoursework2.Forms
         private TimePickerControl mTimeField;
         private RecurrentDropDownFieldControl mRecurrentField;
         private MultiTextFieldControl mNotesField;
-        private EventState SelectedEventState = EventState.Task;
+        public EventState SelectedEventState = EventState.Task;
 
         public AddEvent()
         {
@@ -40,8 +42,68 @@ namespace EADCoursework2.Forms
             InitializeUIComponents();
             Init();
             CreateTaskForm();
+            SetEditData();
         }
 
+        private void SetEditData()
+        {
+            if(SelectedEventState == EventState.EditTask)
+            {
+                if(EditModeEvent != null)
+                {
+                    var t = (TaskEvent)EditModeEvent;
+                    if(t != null && t.Id != 0)
+                    {
+                        EditModeEventId = t.Id;
+
+                        mTitleField.LabelValue = t.Title;
+                        mNotesField.LabelValue = t.Notes;
+                        mDateField.Date = t.Date.Count > 0 ? t.Date[0] : DateTime.Now;
+                        mTimeField.Time = t.Time;
+                        mRecurrentField.CheckBoxValue = t.IsRecurrent;
+                        if(t.IsRecurrent)
+                        {
+                            SetRecurrentFieldData(t);
+                        }
+                    }
+                }
+                toggleTask.ToggleControl(true);
+                toggleAppointment.ToggleControl(false);
+            }
+            else if (SelectedEventState == EventState.EditAppointment)
+            {
+                if (EditModeEvent != null)
+                {
+                    var t = (Appointment)EditModeEvent;
+                    if (t != null && t.Id != 0)
+                    {
+                        EditModeEventId = t.Id;
+
+                        mTitleField.LabelValue = t.Title;
+                        mNotesField.LabelValue = t.Notes;
+                        mDateField.Date = t.Date.Count > 0 ? t.Date[0] : DateTime.Now;
+                        mTimeField.Time = t.Time;
+                        mRecurrentField.CheckBoxValue = t.IsRecurrent;
+                        if (t.IsRecurrent)
+                        {
+                            SetRecurrentFieldData(t);
+                        }
+                    }
+                }
+                toggleTask.ToggleControl(false);
+                toggleAppointment.ToggleControl(true);
+            }
+        }
+
+        private void SetRecurrentFieldData(Event t)
+        {
+            if (t.RecurrentType == RecurrentType.EveryWeek)
+                mRecurrentField.SelectedDropDownValue = (int)RecurrentType.EveryWeek;
+            else if (t.RecurrentType == RecurrentType.EveryMonth)
+                mRecurrentField.SelectedDropDownValue = (int)RecurrentType.EveryMonth;
+            else if (t.RecurrentType == RecurrentType.EveryDay)
+                mRecurrentField.SelectedDropDownValue = (int)RecurrentType.EveryDay;
+        }
         private void Init()
         {
             try
@@ -58,6 +120,10 @@ namespace EADCoursework2.Forms
 
         private void InitializeUIComponents()
         {
+            if(SelectedEventState == EventState.Appointment || SelectedEventState == EventState.Task)
+            {
+                btnDelete.Visible = false;
+            }
             //set controls
             mTitleField = new TextFieldControl();
             mTitleField.LabelKey = "Title";
@@ -331,6 +397,9 @@ namespace EADCoursework2.Forms
         #region Event Handlers
         private void ToggleAppointment_Click(object sender, EventArgs e)
         {
+            if (SelectedEventState == EventState.EditAppointment || SelectedEventState == EventState.EditTask)
+                return;
+
             if (SelectedEventState != EventState.Appointment)
             {
                 if (ResetForm())
@@ -346,6 +415,8 @@ namespace EADCoursework2.Forms
 
         private void ToggleTask_Click(object sender, EventArgs e)
         {
+            if (SelectedEventState == EventState.EditAppointment || SelectedEventState == EventState.EditTask)
+                return;
             if (SelectedEventState != EventState.Task)
             {
                 if (ResetForm())
@@ -366,6 +437,40 @@ namespace EADCoursework2.Forms
                 {
                     var appointment = new Appointment()
                     {
+                        Date = GetRecurrentDates(),
+                        Notes = mNotesField.LabelValue.Trim(),
+                        Time = mTimeField.Time,
+                        Title = mTitleField.LabelValue.Trim(),
+                        User = this.User,
+                        UserId = this.User.UserId,
+                        IsRecurrent = mRecurrentField.CheckBoxValue,
+                        RecurrentType = GetRecurrentType()
+                    };
+                    var app = await CreateAppointment(appointment);
+                    if (app != null && app.Id != 0)
+                    {
+                        MessageBox.Show("Appointment created successfully");
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Something went wrong, please try again later");
+                        this.Close();
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Please fill all the requried fields");
+                }
+            }
+            else if (SelectedEventState == EventState.EditAppointment)
+            {
+                if (ValidateAppointmentFields())
+                {
+                    var appointment = new Appointment()
+                    {
+                        Id = EditModeEventId,
                         Date = GetRecurrentDates(),
                         Notes = mNotesField.LabelValue.Trim(),
                         Time = mTimeField.Time,
@@ -426,7 +531,72 @@ namespace EADCoursework2.Forms
                     MessageBox.Show("Please fill all the requried fields");
                 }
             }
+            else if (SelectedEventState == EventState.EditTask)
+            {
+                if (ValidateTaskFields())
+                {
+                    var task = new TaskEvent()
+                    {
+                        Id = EditModeEventId,
+                        Date = GetRecurrentDates(),
+                        Notes = mNotesField.LabelValue.Trim(),
+                        Time = mTimeField.Time,
+                        Title = mTitleField.LabelValue.Trim(),
+                        User = this.User,
+                        UserId = this.User.UserId,
+                        IsRecurrent = mRecurrentField.CheckBoxValue,
+                        RecurrentType = GetRecurrentType()
+                    };
+                    var t = await CreateTask(task);
+                    if (t != null && t.Id != 0)
+                    {
+                        MessageBox.Show("Task updated successfully");
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Something went wrong, please try again later");
+                        this.Close();
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Please fill all the requried fields");
+                }
+            }
         }
         #endregion
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            if(SelectedEventState == EventState.EditAppointment || SelectedEventState == EventState.EditTask)
+            {
+                if(mEventService != null)
+                {
+                    try
+                    {
+                        if (SelectedEventState == EventState.EditAppointment)
+                        {
+                            var res = await mEventService.DeleteAppointment((Appointment)EditModeEvent);
+                        }
+                        else if (SelectedEventState == EventState.EditTask)
+                        {
+                            var res = await mEventService.DeleteTask((TaskEvent)EditModeEvent);
+                        }
+                        MessageBox.Show("Successfully deleted");
+
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
+                    finally
+                    {
+                        this.Close();
+                    }
+                }
+            }
+        }
     }
 }

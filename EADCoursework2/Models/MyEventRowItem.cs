@@ -40,6 +40,9 @@ namespace EADCoursework2.Models
                 }
             }
         }
+
+        public Transaction Transaction { get; set; }
+        public Event Event { get; set; }
     }
 
     public enum MyEventType

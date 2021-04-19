@@ -80,7 +80,9 @@ namespace EADCoursework2.CustomControls
                 {
                     subItemsFlowLayout.Controls.Add(new MyEventsSubRowItem()
                     {
-                        Item = item
+                        Item = item,
+                        Transaction = item.Transaction,
+                        Event = item.Event
                     }); 
                 }
             }

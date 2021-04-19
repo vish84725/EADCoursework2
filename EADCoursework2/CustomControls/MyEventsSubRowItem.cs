@@ -1,4 +1,5 @@
-﻿using EADCoursework2.Models;
+﻿using EADCoursework2.Forms;
+using EADCoursework2.Models;
 using EADCoursework2.Utils;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,9 @@ namespace EADCoursework2.CustomControls
         {
             get; set;
         }
+        public User LoggedInUser = new User() { UserId = 1 };
+        public Transaction Transaction { get; set; }
+        public Event Event { get; set; }
         #endregion
         public MyEventsSubRowItem()
         {
@@ -64,5 +68,44 @@ namespace EADCoursework2.CustomControls
             }
         }
         #endregion
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if(Transaction != null)
+            {
+                if(Transaction.GetType() == typeof(Models.Income))
+                {
+                    MessageBox.Show("Income");
+                }
+                else if (Transaction.GetType() == typeof(Models.Expense))
+                {
+                    MessageBox.Show("Expense");
+                }
+            }
+            else if(Event != null)
+            {
+                if (Event.GetType() == typeof(Models.Appointment))
+                {
+                    AddEvent form = new AddEvent()
+                    {
+                        EditModeEvent = Event,
+                        SelectedEventState = AddEvent.EventState.EditAppointment,
+                        User = LoggedInUser
+                    };
+                    form.Show();
+                }
+            
+                else if (Event.GetType() == typeof(Models.TaskEvent))
+                {
+                    AddEvent form = new AddEvent()
+                    {
+                        EditModeEvent = Event,
+                        SelectedEventState = AddEvent.EventState.EditTask,
+                        User = LoggedInUser
+                    };
+                    form.Show();
+                }
+            }
+        }
     }
 }

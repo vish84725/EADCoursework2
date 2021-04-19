@@ -45,6 +45,32 @@ namespace EADCoursework2.DAL
             }
         }
 
+        public async Task<Appointment> DeleteAppointment(Appointment appointment)
+        {
+            try
+            {
+                var app = await MyWalletAPI<Appointment>.PostRequest($"{BASEURL}api/event/appointment/delete", appointment);
+                return app;
+            }
+            catch (Exception e)
+            {
+                return new Appointment();
+            }
+        }
+
+        public async Task<TaskEvent> DeleteTask(TaskEvent task)
+        {
+            try
+            {
+                var t = await MyWalletAPI<TaskEvent>.PostRequest($"{BASEURL}api/event/task/delete", task);
+                return t;
+            }
+            catch (Exception e)
+            {
+                return new TaskEvent();
+            }
+        }
+
         public async Task<List<Appointment>> GetAllAppointmentRange(List<Appointment> dto)
         {
             try

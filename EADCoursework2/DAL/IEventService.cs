@@ -15,5 +15,8 @@ namespace EADCoursework2.DAL
         Task<List<Appointment>> GetAllAppointments();
         Task<List<TaskEvent>> GetAllTasksRange(List<TaskEvent> dto);
         Task<List<Appointment>> GetAllAppointmentRange(List<Appointment> dto);
+
+        Task<Appointment> DeleteAppointment(Appointment appointment);
+        Task<TaskEvent> DeleteTask(TaskEvent task);
     }
 }

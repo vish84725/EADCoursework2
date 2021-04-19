@@ -67,6 +67,12 @@ namespace EADCoursework2.CustomControls
                 var tasks = await LoadTasks();
                 var appointments = await LoadAppointments();
 
+
+                incomes = (incomes != null && incomes.Count>0) ? incomes.OrderBy(inc => inc.Date).ToList() : incomes;
+                expenses = (expenses != null && expenses.Count > 0) ? expenses.OrderBy(inc => inc.Date).ToList() : expenses;
+                tasks = (tasks != null && tasks.Count > 0) ? tasks.OrderBy(inc => inc.Date[0]).ToList() : tasks;
+                appointments = (appointments != null && appointments.Count > 0) ? appointments.OrderBy(inc => inc.Date[0]).ToList() : appointments; 
+
                 if(CurrentViewState == ViewDisplayState.All ||CurrentViewState == ViewDisplayState.Events)
                 {
                     PopulateAppointments(appointments, myEventsRows);
@@ -105,7 +111,8 @@ namespace EADCoursework2.CustomControls
                         Description = income.Notes,
                         Title = income.Title,
                         Type = MyEventType.Income,
-                        Value = $"Rs. {income.Amount.ToString()}"
+                        Value = $"Rs. {income.Amount.ToString()}",
+                        Transaction = income
                     };
                     var dateValue = $"{income.Date.Day} of {income.Date.ToString("MMMM")}";
                     var dayValue = income.Date.DayOfWeek.ToString();
@@ -140,7 +147,8 @@ namespace EADCoursework2.CustomControls
                         Description = expense.Notes,
                         Title = expense.Title,
                         Type = MyEventType.Expense,
-                        Value = $"Rs. {expense.Amount.ToString()}"
+                        Value = $"Rs. {expense.Amount.ToString()}",
+                        Transaction =expense
                     };
                     var dateValue = $"{expense.Date.Day} of {expense.Date.ToString("MMMM")}";
                     var dayValue = expense.Date.DayOfWeek.ToString();
@@ -175,7 +183,8 @@ namespace EADCoursework2.CustomControls
                         Description = appointment.Notes,
                         Title = appointment.Title,
                         Type = MyEventType.Appointment,
-                        Value = appointment.Time.ToString("t")
+                        Value = appointment.Time.ToString("t"),
+                        Event = appointment
                     };
 
                     if (appointment.Date != null && appointment.Date.Count > 0)
@@ -216,7 +225,8 @@ namespace EADCoursework2.CustomControls
                         Description = task.Notes,
                         Title = task.Title,
                         Type = MyEventType.Task,
-                        Value = task.Time.ToString("t")
+                        Value = task.Time.ToString("t"),
+                        Event = task
                     };
 
                     if (task.Date != null && task.Date.Count > 0)
