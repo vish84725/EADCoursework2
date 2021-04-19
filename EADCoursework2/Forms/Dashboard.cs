@@ -69,6 +69,7 @@ namespace EADCoursework2.Forms
                         break;
                     case TabHeaderItem.MyWallet:
                         tabHeaderMyWallet.ToggleSelectedState(true);
+                        mWallet.LoadData();
                         this.panelMain.Controls.Add(mWallet);
                         break;
                     case TabHeaderItem.MySettings:

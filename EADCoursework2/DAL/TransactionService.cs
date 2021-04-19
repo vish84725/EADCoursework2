@@ -166,5 +166,18 @@ namespace EADCoursework2.DAL
                 return new PredictionDTO();
             }
         }
+
+        public async Task<WalletSummaryDTO> GetWalletSummary()
+        {
+            try
+            {
+                var summary = await MyWalletAPI<WalletSummaryDTO>.Get($"{BASEURL}api/transaction/walletsummary");
+                return summary;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

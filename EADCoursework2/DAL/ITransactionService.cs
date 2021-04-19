@@ -21,5 +21,6 @@ namespace EADCoursework2.DAL
         Task<List<Expense>> GetAllExpenseRange(List<Expense> dto);
 
         Task<PredictionDTO> GetPrediction(PredictionDTO dto);
+        Task<WalletSummaryDTO> GetWalletSummary();
     }
 }
