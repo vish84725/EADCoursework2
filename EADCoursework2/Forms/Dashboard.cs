@@ -17,6 +17,7 @@ namespace EADCoursework2.Forms
     {
         private MyWalletUserControl mWallet;
         private MyEventsUserControl mEvents;
+        private MyReportsUserControl mReports;
         public User LoggedInUser { get; set; }
         public Dashboard()
         {
@@ -37,6 +38,7 @@ namespace EADCoursework2.Forms
         {
             mWallet = new MyWalletUserControl() { LoggedInUser = this.LoggedInUser };
             mEvents = new MyEventsUserControl() { LoggedInUser = this.LoggedInUser };
+            mReports = new MyReportsUserControl() {  };
 
             //Set tab headers details
             tabHeaderMyEvents.SetHeaderItemType(Utils.TabHeaderItem.MyEvents);
@@ -55,6 +57,7 @@ namespace EADCoursework2.Forms
             {
                 this.panelMain.Controls.Remove(mWallet);
                 this.panelMain.Controls.Remove(mEvents);
+                this.panelMain.Controls.Remove(mReports);
 
                 tabHeaderMyEvents.ToggleSelectedState(false);
                 tabHeaderMyWallet.ToggleSelectedState(false);
@@ -77,6 +80,7 @@ namespace EADCoursework2.Forms
                         break;
                     case TabHeaderItem.MyReports:
                         tabHeaderMyReports.ToggleSelectedState(true);
+                        this.panelMain.Controls.Add(mReports);
                         break;
                 }
 

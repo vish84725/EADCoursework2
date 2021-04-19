@@ -118,6 +118,12 @@
     <Compile Include="CustomControls\MyEventsUserControl.Designer.cs">
       <DependentUpon>MyEventsUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\MyReportsUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\MyReportsUserControl.Designer.cs">
+      <DependentUpon>MyReportsUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\MyWalletUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -232,6 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\MyEventsUserControl.resx">
       <DependentUpon>MyEventsUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\MyReportsUserControl.resx">
+      <DependentUpon>MyReportsUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\MyWalletUserControl.resx">
       <DependentUpon>MyWalletUserControl.cs</DependentUpon>
