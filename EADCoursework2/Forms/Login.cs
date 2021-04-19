@@ -49,6 +49,7 @@ namespace EADCoursework2.Forms
         {
             textFieldUsername.LabelKey = "Username";
             textFieldPassword.LabelKey = "Password";
+            textFieldPassword.MakeFieldPasswordType();
         }
 
         private bool ValidateFields()

@@ -31,6 +31,11 @@ namespace EADCoursework2.CustomControls.InputControls
             }
         }
 
+        public void MakeFieldPasswordType()
+        {
+            txtBoxValue.PasswordChar = '*';
+        }
+
         public TextFieldControl()
         {
             InitializeComponent();
