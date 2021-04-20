@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
@@ -15,6 +16,7 @@ namespace EADCoursework2.DAL
     public class RemoteAccessService
     {
         Serializer serializer;
+        static ReaderWriterLock locker = new ReaderWriterLock();
 
         public RemoteAccessService()
         {
@@ -36,7 +38,8 @@ namespace EADCoursework2.DAL
         public void WriteToXML<T>(T obj)where T : class
         {
             try
-            {            
+            {
+                locker.AcquireWriterLock(int.MaxValue);
                 var path = Constants.LOCAL_XML_PATH + typeof(T).Name + ".xml";
 
                 XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(T));
@@ -48,6 +51,10 @@ namespace EADCoursework2.DAL
             catch(Exception e)
             {
 
+            }
+            finally
+            {
+                locker.ReleaseWriterLock();
             }
 
         }
