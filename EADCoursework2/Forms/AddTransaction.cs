@@ -377,6 +377,10 @@ namespace EADCoursework2.Forms
                     }
                     
                 }
+                else
+                {
+                    MessageBox.Show("Please fill all the fields");
+                }
             }
             else if(SelectedTransactionState == TransactionState.Expense)
             {
@@ -399,6 +403,10 @@ namespace EADCoursework2.Forms
                     {
                         MessageBox.Show("Expense created successfully");
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Please fill all the fields");
                 }
             }
         }

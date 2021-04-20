@@ -76,7 +76,8 @@ namespace EADCoursework2.Forms
                         this.panelMain.Controls.Add(mWallet);
                         break;
                     case TabHeaderItem.MySettings:
-                        tabHeaderMySettings.ToggleSelectedState(true);
+                        MessageBox.Show("Coming soon !");
+                        //tabHeaderMySettings.ToggleSelectedState(true);
                         break;
                     case TabHeaderItem.MyReports:
                         tabHeaderMyReports.ToggleSelectedState(true);

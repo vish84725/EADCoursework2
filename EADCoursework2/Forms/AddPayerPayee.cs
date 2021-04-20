@@ -236,6 +236,10 @@ namespace EADCoursework2.Forms
                     }
                 }
             }
+            else
+            {
+                MessageBox.Show("Please fill all the fields");
+            }
         }
 
         private void TogglePayee_Click(object sender, EventArgs e)

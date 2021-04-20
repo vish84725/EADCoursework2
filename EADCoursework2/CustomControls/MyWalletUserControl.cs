@@ -88,5 +88,10 @@ namespace EADCoursework2.CustomControls
             PredictFinancialStatus form = new PredictFinancialStatus();
             form.ShowDialog();
         }
+
+        private void btnallTansactions_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Coming Soon!");
+        }
     }
 }

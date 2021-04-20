@@ -106,6 +106,7 @@ namespace EADCoursework2.CustomControls
             this.btnallTansactions.TabIndex = 0;
             this.btnallTansactions.Text = "View All Transactions";
             this.btnallTansactions.UseVisualStyleBackColor = false;
+            this.btnallTansactions.Click += new System.EventHandler(this.btnallTansactions_Click);
             // 
             // panel2
             // 
