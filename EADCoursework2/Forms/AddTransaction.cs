@@ -16,14 +16,17 @@ namespace EADCoursework2.Forms
     public partial class AddTransaction : Form
     {
         public User User { get; set; }
-        public enum TransactionState { Income, Expense};
+        public Transaction EditModeTransaction { get; set; }
+        private int EditModeTransactionId { get; set; }
+        private RemoteAccessService mRemoteAccessService;
+        public enum TransactionState { Income, Expense, EditIncome, EditExpense};
 
         private TextFieldControl mTitleField, mAmountField;
         private DateFieldControl mDateField;
         private TimePickerControl mTimeField;
         private DropDownFieldControl mPayerField, mPayeeField;
         private MultiTextFieldControl mNotesField;
-        private TransactionState SelectedTransactionState;
+        public TransactionState SelectedTransactionState = TransactionState.Income;
         private ITransactionService mTransactionService;
         AddPayerPayee form;
 
@@ -40,6 +43,7 @@ namespace EADCoursework2.Forms
             InitializeUIComponents();
             Init();
             CreateIncomeForm();
+            SetEditData();
 
         }
 
@@ -48,7 +52,8 @@ namespace EADCoursework2.Forms
             try
             {
                 mTransactionService = new TransactionService();
-                SelectedTransactionState = TransactionState.Income;
+                mRemoteAccessService = new RemoteAccessService();
+                LoadRemoteData();
             }
             catch(Exception)
             {
@@ -56,8 +61,55 @@ namespace EADCoursework2.Forms
             }
         }
 
+        private void SetEditData()
+        {
+            if (SelectedTransactionState == TransactionState.EditExpense)
+            {
+                if (EditModeTransaction != null)
+                {
+                    var t = (Expense)EditModeTransaction;
+                    if (t != null && t.TransactionId != 0)
+                    {
+                        EditModeTransactionId = t.TransactionId;
+
+                        mTitleField.LabelValue = t.Title;
+                        mNotesField.LabelValue = t.Notes;
+                        mDateField.Date = t.Date;
+                        mTimeField.Time = t.Time;
+                        mAmountField.LabelValue = t.Amount.ToString() ;
+                    }
+                }
+                toggleExpense.ToggleControl(true);
+                toggleIncome.ToggleControl(false);
+            }
+            else if (SelectedTransactionState == TransactionState.EditIncome)
+            {
+                if (EditModeTransaction != null)
+                {
+                    var t = (Income)EditModeTransaction;
+                    if (t != null && t.TransactionId != 0)
+                    {
+                        EditModeTransactionId = t.TransactionId;
+
+                        mTitleField.LabelValue = t.Title;
+                        mNotesField.LabelValue = t.Notes;
+                        mDateField.Date = t.Date;
+                        mTimeField.Time = t.Time;
+                        mAmountField.LabelValue = t.Amount.ToString();
+                    }
+                }
+                toggleExpense.ToggleControl(true);
+                toggleIncome.ToggleControl(false);
+            }
+        }
+
         private void InitializeUIComponents()
         {
+            if (SelectedTransactionState == TransactionState.Income || SelectedTransactionState == TransactionState.Expense)
+            {
+                btnDelete.Visible = false;
+            }
+
             //set controls
             mTitleField = new TextFieldControl();
             mTitleField.LabelKey = "Title";
@@ -88,6 +140,52 @@ namespace EADCoursework2.Forms
             toggleIncome.ToggleControl(true);
         }
 
+        private void LoadRemoteData()
+        {
+            try
+            {
+                if (mRemoteAccessService != null)
+                {
+                    if (SelectedTransactionState == TransactionState.Expense)
+                    {
+                        var localExpense = mRemoteAccessService.ReadXML<Expense>();
+                        if (localExpense != null)
+                        {
+                            mTitleField.LabelValue = localExpense.Title;
+                            mNotesField.LabelValue = localExpense.Notes;
+                            mAmountField.LabelValue = localExpense.Amount.ToString();
+
+                            if (localExpense.Date != null)
+                                mDateField.Date = localExpense.Date;
+
+
+                        }
+                    }
+                    else if (SelectedTransactionState == TransactionState.Income)
+                    {
+                        var localIncome = mRemoteAccessService.ReadXML<Income>();
+                        if (localIncome != null)
+                        {
+                            mTitleField.LabelValue = localIncome.Title;
+                            mNotesField.LabelValue = localIncome.Notes;
+                            mAmountField.LabelValue = localIncome.Amount.ToString();
+
+                            if (localIncome.Date != null)
+                                mDateField.Date = localIncome.Date;
+
+
+                        }
+
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
         private void RefreshData()
         {
             LoadData();
@@ -96,14 +194,14 @@ namespace EADCoursework2.Forms
         {
             try
             {
-                if (SelectedTransactionState == TransactionState.Income)
+                if (SelectedTransactionState == TransactionState.Income || SelectedTransactionState == TransactionState.EditIncome)
                 {
                     if (mPayerField != null)
                     {
                         await LoadPayers();
                     }
                 }
-                else if (SelectedTransactionState == TransactionState.Expense)
+                else if (SelectedTransactionState == TransactionState.Expense || SelectedTransactionState == TransactionState.EditExpense)
                 {
                     if (mPayeeField != null)
                     {
@@ -339,6 +437,8 @@ namespace EADCoursework2.Forms
         #region Event Handlers
         private void ToggleExpense_Click(object sender, EventArgs e)
         {
+            if (SelectedTransactionState == TransactionState.EditIncome || SelectedTransactionState == TransactionState.EditExpense)
+                return;
             if(SelectedTransactionState != TransactionState.Expense)
             {
                 if (ResetForm())
@@ -348,13 +448,45 @@ namespace EADCoursework2.Forms
                 }
                 toggleIncome.ToggleControl(false);
                 toggleExpense.ToggleControl(true);
+                LoadRemoteData();
             }
 
         }
 
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (SelectedTransactionState == TransactionState.EditExpense || SelectedTransactionState == TransactionState.EditIncome)
+            {
+                if (mTransactionService != null)
+                {
+                    try
+                    {
+                        if (SelectedTransactionState == TransactionState.EditExpense)
+                        {
+                            var res = await mTransactionService.DeleteExpense((Expense)EditModeTransaction);
+                        }
+                        else if (SelectedTransactionState == TransactionState.EditIncome)
+                        {
+                            var res = await mTransactionService.DeleteIncome((Income)EditModeTransaction);
+                        }
+                        MessageBox.Show("Successfully deleted");
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    finally
+                    {
+                        this.Close();
+                    }
+                }
+            }
+        }
+
         private async void button1_Click(object sender, EventArgs e)
         {
-            if(SelectedTransactionState == TransactionState.Income)
+            if (SelectedTransactionState == TransactionState.Income)
             {
                 if(ValidateIncomeFields())
                 {
@@ -409,11 +541,70 @@ namespace EADCoursework2.Forms
                     MessageBox.Show("Please fill all the fields");
                 }
             }
+            else if (SelectedTransactionState == TransactionState.EditIncome)
+            {
+                if (ValidateIncomeFields())
+                {
+                    var income = new Income()
+                    {
+                        TransactionId = EditModeTransactionId,
+                        Date = mDateField.Date,
+                        Notes = mNotesField.LabelValue.Trim(),
+                        Payer = (Payer)mPayerField.SelectedDropDownValue,
+                        Time = mTimeField.Time,
+                        Title = mTitleField.LabelValue.Trim(),
+                        User = this.User,
+                        UserId = this.User.UserId,
+                        Amount = Double.Parse(mAmountField.LabelValue),
+                        PayerId = ((Payer)mPayerField.SelectedDropDownValue).PayerId
+                    };
+                    var inc = await CreateIncome(income);
+                    if (inc != null && inc.TransactionId != 0)
+                    {
+                        MessageBox.Show("Income updated successfully");
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Please fill all the fields");
+                }
+            }
+            else if (SelectedTransactionState == TransactionState.EditExpense)
+            {
+                if (ValidateExpenseFields())
+                {
+                    var expense = new Expense()
+                    {
+                        TransactionId = EditModeTransactionId,
+                        Date = mDateField.Date,
+                        Notes = mNotesField.LabelValue.Trim(),
+                        Payee = (Payee)mPayeeField.SelectedDropDownValue,
+                        Time = mTimeField.Time,
+                        Title = mTitleField.LabelValue.Trim(),
+                        User = this.User,
+                        Amount = Double.Parse(mAmountField.LabelValue),
+                        UserId = this.User.UserId,
+                        PayeeId = ((Payee)mPayeeField.SelectedDropDownValue).PayeeId
+                    };
+                    var exp = await CreateExpense(expense);
+                    if (exp != null && exp.TransactionId != 0)
+                    {
+                        MessageBox.Show("Expense updated successfully");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please fill all the fields");
+                }
+            }
         }
 
         private void ToggleIncome_Click(object sender, EventArgs e)
         {
-            if(SelectedTransactionState != TransactionState.Income)
+            if (SelectedTransactionState == TransactionState.EditIncome || SelectedTransactionState == TransactionState.EditExpense)
+                return;
+            if (SelectedTransactionState != TransactionState.Income)
             {
                 if (ResetForm())
                 {
@@ -422,6 +613,7 @@ namespace EADCoursework2.Forms
                 }
                 toggleIncome.ToggleControl(true);
                 toggleExpense.ToggleControl(false);
+                LoadRemoteData();
             }
 
         }

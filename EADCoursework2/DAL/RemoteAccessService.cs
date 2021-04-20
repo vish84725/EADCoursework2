@@ -27,12 +27,17 @@ namespace EADCoursework2.DAL
         {
             try
             {
+                locker.AcquireWriterLock(int.MaxValue);
                 var path = Constants.LOCAL_XML_PATH + typeof(T).Name + ".xml";
                 File.Delete(path);
             }
             catch(Exception e)
             {
 
+            }
+            finally
+            {
+                locker.ReleaseWriterLock();
             }
         }
         public void WriteToXML<T>(T obj)where T : class
@@ -63,6 +68,7 @@ namespace EADCoursework2.DAL
         {
             try
             {
+                locker.AcquireWriterLock(int.MaxValue);
                 var path = $"{Constants.LOCAL_XML_PATH}{typeof(T).Name}.xml";
                 var xmlInputData = File.ReadAllText(path);
 
@@ -76,6 +82,10 @@ namespace EADCoursework2.DAL
             catch(Exception e)
             {
                 return default(T);
+            }
+            finally
+            {
+                locker.ReleaseWriterLock();
             }
 
 

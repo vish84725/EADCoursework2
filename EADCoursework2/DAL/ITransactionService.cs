@@ -22,5 +22,8 @@ namespace EADCoursework2.DAL
 
         Task<PredictionDTO> GetPrediction(PredictionDTO dto);
         Task<WalletSummaryDTO> GetWalletSummary();
+
+        Task<Expense> DeleteExpense(Expense expense);
+        Task<Income> DeleteIncome(Income income);
     }
 }

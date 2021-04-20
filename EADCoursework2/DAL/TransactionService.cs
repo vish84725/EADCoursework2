@@ -76,6 +76,32 @@ namespace EADCoursework2.DAL
             }
         }
 
+        public async Task<Expense> DeleteExpense(Expense expense)
+        {
+            try
+            {
+                var app = await MyWalletAPI<Expense>.PostRequest($"{BASEURL}api/transaction/expense/delete", expense);
+                return app;
+            }
+            catch (Exception e)
+            {
+                return new Expense();
+            }
+        }
+
+        public async Task<Income> DeleteIncome(Income income)
+        {
+            try
+            {
+                var app = await MyWalletAPI<Income>.PostRequest($"{BASEURL}api/transaction/income/delete", income);
+                return app;
+            }
+            catch (Exception e)
+            {
+                return new Income();
+            }
+        }
+
         public async Task<List<Expense>> GetAllExpense()
         {
             try

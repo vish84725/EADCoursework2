@@ -483,7 +483,7 @@ namespace EADCoursework2.Forms
                     var app = await CreateAppointment(appointment);
                     if (app != null && app.Id != 0)
                     {
-                        MessageBox.Show("Appointment created successfully");
+                        MessageBox.Show("Appointment updated successfully");
                         this.Close();
                     }
                     else

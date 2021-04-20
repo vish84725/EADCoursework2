@@ -75,11 +75,23 @@ namespace EADCoursework2.CustomControls
             {
                 if(Transaction.GetType() == typeof(Models.Income))
                 {
-                    MessageBox.Show("Income");
+                    AddTransaction form = new AddTransaction()
+                    {
+                        EditModeTransaction = Transaction,
+                        SelectedTransactionState = AddTransaction.TransactionState.EditIncome,
+                        User = LoggedInUser
+                    };
+                    form.Show();
                 }
                 else if (Transaction.GetType() == typeof(Models.Expense))
                 {
-                    MessageBox.Show("Expense");
+                    AddTransaction form = new AddTransaction()
+                    {
+                        EditModeTransaction = Transaction,
+                        SelectedTransactionState = AddTransaction.TransactionState.EditExpense,
+                        User = LoggedInUser
+                    };
+                    form.Show();
                 }
             }
             else if(Event != null)
