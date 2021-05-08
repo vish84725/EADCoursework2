@@ -29,6 +29,7 @@ namespace EADCoursework2.Forms
         public TransactionState SelectedTransactionState = TransactionState.Income;
         private ITransactionService mTransactionService;
         AddPayerPayee form;
+        public Action ReloadSummaryViewCallback;
 
         public AddTransaction()
         {
@@ -42,7 +43,15 @@ namespace EADCoursework2.Forms
         {
             InitializeUIComponents();
             Init();
-            CreateIncomeForm();
+            if (SelectedTransactionState == TransactionState.EditIncome || SelectedTransactionState == TransactionState.Income)
+            {
+                CreateIncomeForm();
+            }
+            else if (SelectedTransactionState == TransactionState.EditExpense)
+            {
+                CreateExpenseeForm();
+            }
+            
             SetEditData();
 
         }
@@ -98,8 +107,8 @@ namespace EADCoursework2.Forms
                         mAmountField.LabelValue = t.Amount.ToString();
                     }
                 }
-                toggleExpense.ToggleControl(true);
-                toggleIncome.ToggleControl(false);
+                toggleExpense.ToggleControl(false);
+                toggleIncome.ToggleControl(true);
             }
         }
 
@@ -506,6 +515,7 @@ namespace EADCoursework2.Forms
                     if (inc != null && inc.TransactionId != 0)
                     {
                         MessageBox.Show("Income created successfully");
+                        ReloadSummaryViewCallback?.Invoke();
                     }
                     
                 }
@@ -534,6 +544,7 @@ namespace EADCoursework2.Forms
                     if (exp != null && exp.TransactionId != 0)
                     {
                         MessageBox.Show("Expense created successfully");
+                        ReloadSummaryViewCallback?.Invoke();
                     }
                 }
                 else
@@ -562,6 +573,7 @@ namespace EADCoursework2.Forms
                     if (inc != null && inc.TransactionId != 0)
                     {
                         MessageBox.Show("Income updated successfully");
+                        ReloadSummaryViewCallback?.Invoke();
                     }
 
                 }
@@ -591,6 +603,7 @@ namespace EADCoursework2.Forms
                     if (exp != null && exp.TransactionId != 0)
                     {
                         MessageBox.Show("Expense updated successfully");
+                        ReloadSummaryViewCallback?.Invoke();
                     }
                 }
                 else

@@ -32,6 +32,8 @@ namespace EADCoursework2.Forms
             textFieldUsername.LabelKey = "Username";
             textFieldPassword.LabelKey = "Password";
             textFieldConfirmPassword.LabelKey = "Confirm Password";
+            textFieldPassword.MakeFieldPasswordType();
+            textFieldConfirmPassword.MakeFieldPasswordType();
         }
 
         private void Init()

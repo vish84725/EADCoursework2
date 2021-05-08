@@ -74,6 +74,7 @@ namespace EADCoursework2.CustomControls
         {
             AddTransaction form = new AddTransaction();
             form.User = LoggedInUser;
+            form.ReloadSummaryViewCallback = this.LoadData;
             form.ShowDialog();
         }
 
